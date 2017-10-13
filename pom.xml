@@ -9,6 +9,7 @@
         <module>Synchronization</module>
         <module>CSSSelectors</module>
         <module>XPath</module>
+        <module>HowToRunTestWithChrome</module>
     </modules>
     <dependencies>
         <dependency>
