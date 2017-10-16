@@ -21,7 +21,7 @@ public class SynchronizationImplicitWait1 {
         
         System.out.println("-->> " +  fromAirportElement.isDisplayed() +  " " + fromAirportElement.isEnabled() + " " + fromAirportElement.isSelected());
         
-        //fromAirportElement.clear();
+        fromAirportElement.clear();
         fromAirportElement.sendKeys("München");
         
         final String cssSelectorFromAiportSelector1 = "div.od-airportselector-suggestions li[data-iata='MUC']";
@@ -48,10 +48,10 @@ public class SynchronizationImplicitWait1 {
     }
 
     private static void setupWebDriver() {
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Angelo\\Downloads\\chromedriver_win32\\chromedriver.exe");
-        //System.setProperty("webdriver.chrome.driver", "C:\\Users\\Maggioni\\Downloads\\chromedriver_win32\\chromedriver.exe");
+        //System.setProperty("webdriver.chrome.driver", "C:\\Users\\Angelo\\Downloads\\chromedriver_win32\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Maggioni\\Downloads\\chromedriver_win32\\chromedriver.exe");
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         //driverWait = new WebDriverWait(driver, 20);
         driver.get("https://www.opodo.de/");
     }
