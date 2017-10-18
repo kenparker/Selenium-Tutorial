@@ -21,6 +21,7 @@ public class SynchronizationImplicitWait1 {
         
         System.out.println("-->> " +  fromAirportElement.isDisplayed() +  " " + fromAirportElement.isEnabled() + " " + fromAirportElement.isSelected());
         
+        fromAirportElement.click();
         fromAirportElement.clear();
         fromAirportElement.sendKeys("München");
         

@@ -10,6 +10,8 @@
         <module>CSSSelectors</module>
         <module>XPath</module>
         <module>HowToRunTestWithChrome</module>
+        <module>Frames</module>
+        <module>Exercises</module>
     </modules>
     <dependencies>
         <dependency>
