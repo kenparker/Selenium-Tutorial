@@ -1,19 +1,22 @@
-package com.angelo.selenium.udemy.synchronization;
+package com.angelo.selenium.udemy.howtoruntestwithchrome;
 
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 
-public class SynchronizationImplicitWait2 {
+public class SynchronizationUsingCompositeAction1 {
 
     private static WebDriver driver;
+    private static Actions actions;
 
     public static void main(String[] args) throws InterruptedException {
         setupWebDriverChrome();
-        //Thread.sleep(1000);
         final String cssSelectorFromAirport = "div.od-airportselector.airportselector_root input[tabindex='11']";
         final By cssSelector = By.cssSelector(cssSelectorFromAirport);
         WebElement fromAirportElement = driver.findElement(cssSelector);
@@ -22,10 +25,15 @@ public class SynchronizationImplicitWait2 {
             System.out.println("-->> " + i++ + " " + fromAirportElement.isDisplayed());
         }
         System.out.println("-->> " + i++ + " " + fromAirportElement.isDisplayed() + " " + fromAirportElement.isEnabled() + " " + fromAirportElement.isSelected());
-        System.out.println("clear");
-        fromAirportElement.clear();
-        System.out.println("MUC");
-        fromAirportElement.sendKeys("MUC");
+        actions
+                .moveToElement(fromAirportElement)
+                .doubleClick()
+                .sendKeys(Keys.DELETE)
+                .sendKeys("MUC")
+                .build()
+                .perform();
+        
+        driver.close();
     }
 
     private static void setupWebDriverChrome() {
@@ -37,6 +45,7 @@ public class SynchronizationImplicitWait2 {
 
     private static void setupLocation() {
         driver.manage().timeouts().implicitlyWait(1000, TimeUnit.MILLISECONDS);
+        actions = new Actions(driver);
         driver.get("https://www.opodo.de/");
     }
 
@@ -48,15 +57,4 @@ public class SynchronizationImplicitWait2 {
         setupLocation();
     }
 
-    //fromAirportElement.click();
-    /*
-        1508397813056	geckodriver	INFO	geckodriver 0.19.0
-        -->> false true false
-        Exception in thread "main" org.openqa.selenium.ElementNotInteractableException: 
-     */
- /*
-        Starting ChromeDriver 2.32.498550 (9dec58e66c31bcc53a9ce3c7226f0c1c5810906a) on port 4229
-        -->> false true false
-        Exception in thread "main" org.openqa.selenium.ElementNotVisibleException: element not visible
-     */
 }
