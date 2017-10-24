@@ -1,8 +1,7 @@
 package com.angelo.selenium.udemy.exercises;
 
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -13,30 +12,36 @@ public class CaptchaDemo1 {
 
     public static void main(String[] args) throws InterruptedException {
         setupWebDriverChrome();
-        
-        By cssSelector = By.cssSelector("iframe[title='reCAPTCHA-Widget']");
-        driver.findElements(cssSelector).isEmpty();
-        WebElement findElement = driver.findElement(cssSelector);
-        System.out.println("-->> " + findElement.isDisplayed() + " " + findElement.isEnabled());
-        
-        WebDriver frame = driver.switchTo().frame(findElement);
-        /*List<WebElement> findElements = frame.findElements(By.cssSelector("div"));
-        findElements.forEach(a -> System.out.println(" -> " + a.getTagName() + " " + a.getAttribute("Class")));*/
-        
-        WebElement findElement1 = frame.findElement(By.cssSelector(".recaptcha-checkbox-checkmark"));
-        findElement1.click();
-        
+
+        By captchaWidget = By.cssSelector("iframe[title='reCAPTCHA-Widget']");
+        WebElement findElement = checkAndReturnElement(captchaWidget);
+        driver.switchTo().frame(findElement);
+
+        WebElement captchaCheckbox = checkAndReturnElement(By.cssSelector(".recaptcha-checkbox-checkmark"));
+        captchaCheckbox.click();
+
         Thread.sleep(2000);
         driver.switchTo().defaultContent();
-          
-        By cssSelector1 = By.cssSelector("iframe[title='reCAPTCHA-Aufgabe']");
-        WebElement findElement2 = frame.findElement(cssSelector1);
-        System.out.println("-->> " + findElement2.isDisplayed() + " " + findElement2.isEnabled());
-        
-        
-        WebDriver frame1 = driver.switchTo().frame(findElement2);
-        
+
+        By captchaAufgabe = By.cssSelector("iframe[title='reCAPTCHA-Aufgabe']");
+        WebElement findElement2 = checkAndReturnElement(captchaAufgabe);
+        driver.switchTo().frame(findElement2);
+
+        By bestaetigenButton = By.cssSelector(".rc-button-default.goog-inline-block");
+        WebElement checkAndReturnElement = checkAndReturnElement(bestaetigenButton);
+        checkAndReturnElement.click();
         //driver.close();
+    }
+
+    private static WebElement checkAndReturnElement(By cssSelector) {
+        boolean isEmpty = driver.findElements(cssSelector).isEmpty();
+        if (!isEmpty) {
+            final WebElement findElement = driver.findElement(cssSelector);
+            System.out.println("-->> " + findElement + " " + findElement.isDisplayed() + " " + findElement.isEnabled());
+            return findElement;
+        } else {
+            throw new NoSuchElementException("Element not present");
+        }
     }
 
     private static void setupWebDriverChrome() {
@@ -47,7 +52,7 @@ public class CaptchaDemo1 {
     }
 
     private static void setupLocation() {
-        
+
         driver.get("https://www.google.com/recaptcha/api2/demo");
     }
 }
