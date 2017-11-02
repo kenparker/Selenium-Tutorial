@@ -82,10 +82,16 @@ public class LoginToCampusManagement extends Utility {
         WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
         return wait.until(ExpectedConditions.elementToBeClickable(selector));
     }
-
+    
+    public static WebElement checkAndReturnElement(WebElement element, By selector, int timeOutInSeconds) throws TimeoutException {
+        WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
+        final WebElement findElement = element.findElement(selector);
+        return wait.until(ExpectedConditions.elementToBeClickable(findElement));
+    }
+    
     protected static void setupWebDriverChrome() {
-        //System.setProperty("webdriver.chrome.driver", "C:\\Users\\Angelo\\Downloads\\chromedriver_win32\\chromedriver.exe");
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Maggioni\\Downloads\\chromedriver_win32\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Angelo\\Downloads\\chromedriver_win32\\chromedriver.exe");
+        //System.setProperty("webdriver.chrome.driver", "C:\\Users\\Maggioni\\Downloads\\chromedriver_win32\\chromedriver.exe");
         driver = new ChromeDriver();
         setupLocation();
     }
