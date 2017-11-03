@@ -11,38 +11,38 @@ import org.openqa.selenium.WebElement;
 public class AbschluesseMaskeSuchenDemo1 extends PruefungsManagementOeffnenDemo1 {
 
     public static void main(String[] args) {
-        navigateToAbschluesseControl();
+        suchenNachMatrikelnummerBeiAbschluesse();
     }
 
-    protected static void navigateToAbschluesseControl() {
-        navigateToPruefungsmanagementControl();
-        navigationToAbschluesse();
-        manageWindowAbschluesse();
+    protected static void suchenNachMatrikelnummerBeiAbschluesse() {
+        zuPruefungsmanagementNavigieren();
+        zuAbschluesseNavigieren();
+        sucheNachMatrikelnummerDurchfueren();
     }
 
-    protected static void navigationToAbschluesse() {
+    protected static void zuAbschluesseNavigieren() {
         final By AbschluesseLink = By.cssSelector("a[name='pv_finalexam']");
         WebElement element = checkAndReturnElement(AbschluesseLink, 2);
         JavascriptExecutor executor = (JavascriptExecutor) driver;
         executor.executeScript("arguments[0].click()", element);
     }
 
-    private static void manageWindowAbschluesse() {
+    private static void sucheNachMatrikelnummerDurchfueren() {
         String currentWindow = driver.getWindowHandle();
-        switchToWindowAbschluesse(currentWindow);
+        zuAbschluesseFensterGehen(currentWindow);
         //checkPresenceWebElements();
         nachMatrikelNummerSuchen("03643962");
         abschluesseTabelleVerarbeiten();
     }
 
-    protected static void switchToWindowAbschluesse(String currentWindow) {
+    protected static void zuAbschluesseFensterGehen(String currentWindow) {
         Set<String> windowHandles = driver.getWindowHandles();
         windowHandles.stream().filter((String a) -> (!a.equals(currentWindow))).forEachOrdered((String b) -> {
             driver.switchTo().window(b);
         });
     }
 
-    private static void checkPresenceWebElements() {
+    private static void webElementenPruefen() {
         By actionBlock = By.cssSelector("#idPageNavi");
         isElementPresent(actionBlock);
         By search = By.cssSelector("#idSearchBox");
@@ -67,14 +67,6 @@ public class AbschluesseMaskeSuchenDemo1 extends PruefungsManagementOeffnenDemo1
         List<WebElement> rowsElements = driver.findElements(rows);
         rowsElements.forEach(a -> abschlussSatzVerarbeiten(a));
     }
-
-    // #idHalloIchBinDerSuchKnopf
-    // Matrikelnummer =  #idRealRow2602816 > td:nth-child(5) > a
-    // Matrikelnummer =  a[title='zur Studierendenkartei']
-    // status #idRealRow2602816 > td:nth-child(3) > div > span > a > img
-    // status #idRealRow2602816   img[src='/qtum/img/nyellow_2.gif?20090610160200']
-    //                                      /qtum/img/nyellow.gif?20031217211215
-    //                                      /qtum/img/xgreen.gif?20051124161356  
     
     private static final By STATUS_GUELTIG = By.cssSelector("img[src='/qtum/img/xgreen.gif?20051124161356']");
     private static final By STATUS_ORANGE = By.cssSelector("img[src='/qtum/img/nyellow.gif?20031217211215']");
@@ -84,19 +76,19 @@ public class AbschluesseMaskeSuchenDemo1 extends PruefungsManagementOeffnenDemo1
         By matrikelnummerBy = By.cssSelector("a[title='zur Studierendenkartei']");
         final String matrikelnummer = checkAndReturnElement(a, matrikelnummerBy, 2).getAttribute("innerText");
         String status;
-        status = statusPruefenControl(a);
+        status = abschlussStatusErmitteln(a);
         System.out.println("Matrikelnummer " + matrikelnummer + " status :" + status);
     }
 
-    private static String statusPruefenControl(WebElement a) {
+    private static String abschlussStatusErmitteln(WebElement a) {
         String status;
-        status = statusPruefen(a, STATUS_GELB, "gelb", "");
-        status = statusPruefen(a, STATUS_ORANGE, "orange", status);
-        status = statusPruefen(a, STATUS_GUELTIG, "grün", status);
+        status = statusErkennen(a, STATUS_GELB, "gelb", "");
+        status = statusErkennen(a, STATUS_ORANGE, "orange", status);
+        status = statusErkennen(a, STATUS_GUELTIG, "grün", status);
         return status;
     }
 
-    private static String statusPruefen(WebElement element, By selector, String statusString, String previousStatus) {
+    private static String statusErkennen(WebElement element, By selector, String statusString, String previousStatus) {
         String status = previousStatus;
         try {
             checkAndReturnElement(element, selector, 2);

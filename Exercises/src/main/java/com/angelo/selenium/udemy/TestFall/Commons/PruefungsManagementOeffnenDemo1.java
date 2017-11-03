@@ -5,13 +5,13 @@ import org.openqa.selenium.By;
 public class PruefungsManagementOeffnenDemo1 extends NavigateToHomeDemo1 {
 
 
-    public static void navigateToPruefungsmanagementControl() {
+    public static void zuPruefungsmanagementNavigieren() {
 
-        navigateToHomeControl();
-        navigateToPruefungsmanagementMenue();
+        zuHomeNavigieren();
+        zuPruefungsmanagementMenueNavigieren();
     }
 
-    protected static void navigateToPruefungsmanagementMenue() {
+    protected static void zuPruefungsmanagementMenueNavigieren() {
         switchToFrameDetail();
         final By PruefungsManagementLink = By.cssSelector("a[title='Prüfungsmanagement']");
         checkAndReturnElement(PruefungsManagementLink, 2).click();
