@@ -13,6 +13,7 @@
         <module>Frames</module>
         <module>Exercises</module>
         <module>TestNgBasicDemo1</module>
+        <module>testNgMavenExample</module>
     </modules>
     <dependencies>
         <dependency>
