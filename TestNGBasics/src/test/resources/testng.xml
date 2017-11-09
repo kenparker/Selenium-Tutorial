@@ -1,8 +1,10 @@
+"<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >"
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="TestNgMavenExampleSuite" parallel="false">
-  <test name="TestNgMavenTest">
-    <classes>
-      <class name="com.angelo.selenium.udemy.testngbasics.AnnotationDemo1"/>
-    </classes>
-  </test>
+    <test name="TestNgMavenTest">
+        <classes>
+            <class name="com.angelo.selenium.udemy.testngbasics.AnnotationDemo1"/>
+           
+        </classes>
+    </test>
 </suite>
