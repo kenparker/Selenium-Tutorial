@@ -1,4 +1,4 @@
-package com.angelo.testng.testngdemo1;
+package com.angelo.testNg.simpleDemo;
 
 import org.testng.annotations.Test;
 
