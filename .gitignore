@@ -27,3 +27,5 @@ bin-release/
 /Frames/target/
 /Exercises/target/
 /HowToRunTestWithChrome/target/
+/TestNGBasics/target/
+/TestNGDemo1/target/

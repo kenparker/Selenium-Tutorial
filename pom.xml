@@ -12,6 +12,8 @@
         <module>HowToRunTestWithChrome</module>
         <module>Frames</module>
         <module>Exercises</module>
+        <module>TestNGBasics</module>
+        <module>TestNGDemo1</module>
     </modules>
     <dependencies>
         <dependency>
