@@ -2,11 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     
-    <groupId>com.angelo.selenium.udemy</groupId>
-    <artifactId>TestNGBasics</artifactId>
+    <groupId>com.angelo</groupId>
+    <artifactId>TestNgBasicWithTestngxml</artifactId>
     <packaging>jar</packaging>
     <version>1.0</version>
-    <name>TestNGBasics</name>
+    <name>TestNgBasicWithTestngxml</name>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -21,7 +21,6 @@
         </dependency>
         
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -29,12 +28,11 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.20.1</version>
                 <configuration>
-                    <includes>
-                        <include>*.java</include>
-                    </includes>
-                    
+                    <suiteXmlFiles>
+                        <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
+                    </suiteXmlFiles>
                 </configuration>
             </plugin>
         </plugins>
-    </build>   
+    </build>
 </project>
