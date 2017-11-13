@@ -16,6 +16,7 @@
         <module>TestNgBasicDemo1</module>
         <module>testNgMavenExample</module>
         <module>TestNgBasicDemo2</module>
+        <module>PropertiesFileDemos</module>
     </modules>
     <dependencies>
         <dependency>
