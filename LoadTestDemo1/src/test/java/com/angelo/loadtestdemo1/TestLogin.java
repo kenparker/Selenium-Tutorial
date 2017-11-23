@@ -1,12 +1,26 @@
 package com.angelo.loadtestdemo1;
 
-import com.angelo.selenium.udemy.TestFall.Commons.LoginToCampusManagement;
+
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class TestLogin {
+public class TestLogin extends LoginToCampusManagement{
 
-    @Test
-    public void testLogin() {
-        LoginToCampusManagement.loginManagement();
+    @BeforeClass
+    public static void before() {
+        
+    }
+    
+    @Test(invocationCount = 20, threadPoolSize = 5)
+    public static void testLogin() {
+        LoginToCampusManagement loginToCampusManagement = new LoginToCampusManagement();
+       loginToCampusManagement.loginManagement();
+        loginToCampusManagement.driver.close();
+    }
+    
+        
+    @AfterClass
+    public static void end() {
     }
 }
