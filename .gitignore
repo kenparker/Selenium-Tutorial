@@ -32,3 +32,7 @@ bin-release/
 /TestNgBasicDemo2/target/
 /PropertiesFileDemos/target/
 /MavenQuickstart/target/
+/LoadTestDemo1/target/
+/CSSSelectors/target/
+/XPath/target/
+/testNgMavenExample/target/

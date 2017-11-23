@@ -18,6 +18,7 @@
         <module>TestNgBasicDemo2</module>
         <module>PropertiesFileDemos</module>
     <module>MavenQuickstart</module>
+    <module>LoadTestDemo1</module>
   </modules>
     <dependencies>
         <dependency>
