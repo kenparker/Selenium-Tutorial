@@ -10,10 +10,22 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginToCampusManagement extends Utility {
-    
-    public  static WebDriver driver;
+
+    public static WebDriver driver;
+
+    public static String benutzerValue;
+    public static String passwordValue;
+
+    public static void main(String[] args) {
+
+        loginManagement();
+        driver.close();
+    }
 
     public static void loginManagement() {
+        CredentialsController.loadPropertyFile();
+        benutzerValue = CredentialsController.getUser();
+        passwordValue = CredentialsController.getPassword();
         setupWebDriverChrome();
         navigateToLogin();
         doLogin();
@@ -21,11 +33,10 @@ public class LoginToCampusManagement extends Utility {
     }
 
     protected static void doLogin() {
+
         final By benutzerElement = By.xpath("//*[@name='cp1']");
-        final String benutzerValue = enterSomethingFromConsole("Benutzer");
         checkAndReturnElement(benutzerElement, 2).sendKeys(benutzerValue);
         final By passwordElement = By.xpath("//*[@name='cp2']");
-        final String passwordValue = enterSomethingFromConsole("Password");
         checkAndReturnElement(passwordElement, 2).sendKeys(passwordValue);
         clickButtonAnmeldung();
     }
@@ -81,13 +92,13 @@ public class LoginToCampusManagement extends Utility {
         WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
         return wait.until(ExpectedConditions.elementToBeClickable(selector));
     }
-    
+
     public static WebElement checkAndReturnElement(WebElement element, By selector, int timeOutInSeconds) throws TimeoutException {
         WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
         final WebElement findElement = element.findElement(selector);
         return wait.until(ExpectedConditions.elementToBeClickable(findElement));
     }
-    
+
     protected static void setupWebDriverChrome() {
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\Angelo\\Downloads\\chromedriver_win32\\chromedriver.exe");
         //System.setProperty("webdriver.chrome.driver", "C:\\Users\\Maggioni\\Downloads\\chromedriver_win32\\chromedriver.exe");
@@ -114,9 +125,8 @@ public class LoginToCampusManagement extends Utility {
         findElementsInFrame.forEach((WebElement a) -> System.out.println("tag : >" + a.getTagName() + "<  id : >" + a.getAttribute("id") + "<  name : >" + a.getAttribute("name") + "<  text : >" + a.getText() + "<"));
     }
 
-
     public static void listAllElements(WebElement a) {
         System.out.println("-> " + a.getAttribute("id"));
     }
-    
+
 }
