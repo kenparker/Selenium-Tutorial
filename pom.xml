@@ -17,7 +17,8 @@
         <module>testNgMavenExample</module>
         <module>TestNgBasicDemo2</module>
         <module>PropertiesFileDemos</module>
-    </modules>
+    <module>SauceLabDemo1</module>
+  </modules>
     <dependencies>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
