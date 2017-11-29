@@ -7,15 +7,16 @@ import java.util.Properties;
 
 public class CredentialsController {
 
-    private static final Properties credentials = new Properties();
+    private final Properties credentials = new Properties();
 
     public static void main(String[] args) {
-        loadPropertyFile();
-        System.out.println("user " + getUser() );
-        System.out.println("password " + getPassword());
+        CredentialsController cc = new CredentialsController();
+        cc.loadPropertyFile();
+        System.out.println("user " + cc.getUser() );
+        System.out.println("password " + cc.getPassword());
     }
 
-    public static void loadPropertyFile() {
+    public void loadPropertyFile() {
         File file = new File("src/main/java/com/angelo/properties/Credentials.properties");
 
         try (FileInputStream fileInput = new FileInputStream(file)) {
@@ -26,11 +27,11 @@ public class CredentialsController {
         }
     }
 
-    public static String getUser() {
+    public String getUser() {
         return credentials.getProperty("user");
     }
     
-    public static String getPassword() {
+    public String getPassword() {
         return credentials.getProperty("password");
     }
 }

@@ -1,6 +1,7 @@
 package com.angelo.loadtestdemo1;
 
 
+import java.io.IOException;
 import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -13,24 +14,36 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class LoginToCampusManagement extends Utility {
 
     public  WebDriver driver;
-
     public  String benutzerValue;
     public  String passwordValue;
 
-    public static void main(String[] args) {
+    private WebDriverManagement wdm;
+    private String webdriverpropertyfile;
+
+    public static void main(String[] args) throws IOException {
 
         new LoginToCampusManagement().startLogin();
     }
 
-    private void startLogin() {
+    public void setWebdriverpropertyfile(String webdriverpropertyfile) {
+        this.webdriverpropertyfile = webdriverpropertyfile;
+    }
+
+    private void startLogin() throws IOException {
         loginManagement();
         driver.close();
     }
 
-    public  void loginManagement() {
-        CredentialsController.loadPropertyFile();
-        benutzerValue = CredentialsController.getUser();
-        passwordValue = CredentialsController.getPassword();
+    public  void loginManagement() throws IOException {
+
+        CredentialsController cc = new CredentialsController();
+        cc.loadPropertyFile();
+        benutzerValue = cc.getUser();
+        passwordValue = cc.getPassword();
+
+        wdm = new WebDriverManagement();
+        wdm.build(webdriverpropertyfile);
+
         setupWebDriverChrome();
         navigateToLogin();
         doLogin();
@@ -105,14 +118,12 @@ public class LoginToCampusManagement extends Utility {
     }
 
     protected  void setupWebDriverChrome() {
-        //System.setProperty("webdriver.chrome.driver", "C:\\Users\\Angelo\\Downloads\\chromedriver_win32\\chromedriver.exe");
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Maggioni\\Downloads\\chromedriver_win32\\chromedriver.exe");
-        driver = new ChromeDriver();
+        driver = wdm.getWebDriver();
         setupLocation();
     }
 
     protected  void setupLocation() {
-        driver.get("https://campusquality.tum.de/");
+        driver.get(wdm.getLocation());
     }
 
     protected  void isElementPresent(By selector) {
