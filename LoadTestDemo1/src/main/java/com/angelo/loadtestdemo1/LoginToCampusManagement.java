@@ -7,64 +7,63 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginToCampusManagement extends Utility {
 
-    public  WebDriver driver;
-    public  String benutzerValue;
-    public  String passwordValue;
+    WebDriver driver;
 
     private WebDriverManagement wdm;
-    private String webdriverpropertyfile;
+    private CredentialsController cc;
+    private String webDriverPropertyFile;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
 
         new LoginToCampusManagement().startLogin();
     }
 
-    public void setWebdriverpropertyfile(String webdriverpropertyfile) {
-        this.webdriverpropertyfile = webdriverpropertyfile;
+    public void setWebDriverPropertyFile(String webDriverPropertyFile) {
+        this.webDriverPropertyFile = webDriverPropertyFile;
     }
 
-    private void startLogin() throws IOException {
+    private void startLogin() throws Exception {
         loginManagement();
         driver.close();
     }
 
-    public  void loginManagement() throws IOException {
+    public  void loginManagement() throws Exception {
 
-        CredentialsController cc = new CredentialsController();
-        cc.loadPropertyFile();
-        benutzerValue = cc.getUser();
-        passwordValue = cc.getPassword();
-
-        wdm = new WebDriverManagement();
-        wdm.build(webdriverpropertyfile);
-
+        loadProperties();
         setupWebDriverChrome();
         navigateToLogin();
         doLogin();
         manageInformationFrame();
     }
 
-    protected  void doLogin() {
+    private void loadProperties() throws IOException {
+        cc = new CredentialsController();
+        cc.loadPropertyFile();
+
+        wdm = new WebDriverManagement();
+        wdm.build(webDriverPropertyFile);
+    }
+
+    protected  void doLogin() throws Exception {
 
         final By benutzerElement = By.xpath("//*[@name='cp1']");
-        checkAndReturnElement(benutzerElement, 2).sendKeys(benutzerValue);
+        checkAndReturnElement(benutzerElement, 2).sendKeys(cc.getUser());
         final By passwordElement = By.xpath("//*[@name='cp2']");
-        checkAndReturnElement(passwordElement, 2).sendKeys(passwordValue);
+        checkAndReturnElement(passwordElement, 2).sendKeys(cc.getPassword());
         clickButtonAnmeldung();
     }
 
-    protected  void clickButtonAnmeldung() {
+    protected  void clickButtonAnmeldung() throws Exception {
         final By anmeldungButton = By.xpath("//button[contains(text(),'Anmeldung')]");
         checkAndReturnElement(anmeldungButton, 2).click();
     }
 
-    protected  void clickButtonAnmelden() {
+    protected  void clickButtonAnmelden() throws Exception {
         final By anmeldungButton = By.xpath("//button[contains(text(),'Anmelden')]");
         checkAndReturnElement(anmeldungButton, 2).click();
     }
@@ -74,7 +73,7 @@ public class LoginToCampusManagement extends Utility {
         driver.switchTo().frame("menue");
     }
 
-    protected  void manageInformationFrame() {
+    protected  void manageInformationFrame() throws Exception {
         try {
             final By InformationenMaskeButtonWeiter = By.cssSelector("#ff");
             checkAndReturnElement(InformationenMaskeButtonWeiter, 2).click();
@@ -83,7 +82,7 @@ public class LoginToCampusManagement extends Utility {
         }
     }
 
-    protected  void navigateToLogin() {
+    protected  void navigateToLogin() throws Exception {
         switchToMenueFrame();
         final By menue_frame = By.id("menue_frame_key_icon");
         checkAndReturnElement(menue_frame, 2).click();
@@ -95,7 +94,7 @@ public class LoginToCampusManagement extends Utility {
         driver.switchTo().frame("detail");
     }
 
-    protected  void doPINAnmeldung() {
+    protected  void doPINAnmeldung() throws Exception {
         try {
             final By passwordElement = By.cssSelector("input[type='password']");
             final String passwordValue = enterSomethingFromConsole("PIN");
@@ -106,12 +105,12 @@ public class LoginToCampusManagement extends Utility {
         }
     }
 
-    public  WebElement checkAndReturnElement(By selector, int timeOutInSeconds) throws TimeoutException {
+    public  WebElement checkAndReturnElement(By selector, int timeOutInSeconds) throws Exception {
         WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
         return wait.until(ExpectedConditions.elementToBeClickable(selector));
     }
 
-    public  WebElement checkAndReturnElement(WebElement element, By selector, int timeOutInSeconds) throws TimeoutException {
+    public  WebElement checkAndReturnElement(WebElement element, By selector, int timeOutInSeconds) throws Exception {
         WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
         final WebElement findElement = element.findElement(selector);
         return wait.until(ExpectedConditions.elementToBeClickable(findElement));
@@ -126,7 +125,7 @@ public class LoginToCampusManagement extends Utility {
         driver.get(wdm.getLocation());
     }
 
-    protected  void isElementPresent(By selector) {
+    protected  void isElementPresent(By selector) throws Exception {
         try {
             WebElement checkAndReturnElement = checkAndReturnElement(selector, 5);
             System.out.println("-> Element :>" + selector + "< is present");

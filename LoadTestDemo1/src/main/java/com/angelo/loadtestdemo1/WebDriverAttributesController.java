@@ -16,7 +16,6 @@ public class WebDriverAttributesController {
 
         try (FileInputStream fileInput = new FileInputStream(file)) {
             WebDriverAttributes.load(fileInput);
-            System.out.println("WebDriverAtrributes loaded successfully");
         }
 
     }

@@ -19,27 +19,34 @@ public class TestLogin extends LoginToCampusManagement {
         testOneLoginLocal();
     }
 
-    @Test(enabled = false)
+    @Test(enabled = true)
     public static void testOneLoginLocal() {
         LoginToCampusManagement login = new LoginToCampusManagement();
-        login.setWebdriverpropertyfile("src/main/java/com/angelo/properties/WebDriverAttributes.properties");
-        login(login);
+        login.setWebDriverPropertyFile("src/main/java/com/angelo/properties/WebDriverAttributes.properties");
+        try {
+            login(login);
+        } catch (Exception e) {
+            System.out.println("error");
+            fail();
+        }
     }
 
     @Test(enabled = false)
     public static void testOneLoginRemote() {
         LoginToCampusManagement login = new LoginToCampusManagement();
-        login.setWebdriverpropertyfile("src/main/java/com/angelo/properties/WebDriverAttributes1.properties");
-        login(login);
-    }
-
-    private static void login(LoginToCampusManagement login) {
+        login.setWebDriverPropertyFile("src/main/java/com/angelo/properties/WebDriverAttributes1.properties");
         try {
-            login.loginManagement();
-            login.driver.quit();
-        } catch (IOException ex) {
+            login(login);
+        } catch (Exception e) {
             fail();
         }
+    }
+
+    private static void login(LoginToCampusManagement login) throws Exception {
+
+            login.loginManagement();
+            login.driver.quit();
+
     }
 
     @AfterClass
