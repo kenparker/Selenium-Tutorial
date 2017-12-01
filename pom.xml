@@ -20,6 +20,7 @@
     <module>SauceLabDemo1</module>
     <module>MavenQuickstart</module>
     <module>LoadTestDemo1</module>
+    <module>VisitenkarteStudiPage</module>
   </modules>
     <dependencies>
         <dependency>
