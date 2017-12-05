@@ -1,11 +1,15 @@
-package com.angelo.loadtestdemo1;
+package com.angelo.common;
 
-import com.angelo.common.WebDriverManagement;
+import com.angelo.loadtestdemo1.LoginToCampusManagement;
 import org.openqa.selenium.WebDriver;
 import static org.testng.Assert.fail;
 
 public class Login {
     private WebDriver driver;
+
+    public WebDriver getDriver() {
+        return driver;
+    }
 
     public void doLogin(String webDriverPropertyFile ) {
         login(webDriverPropertyFile);

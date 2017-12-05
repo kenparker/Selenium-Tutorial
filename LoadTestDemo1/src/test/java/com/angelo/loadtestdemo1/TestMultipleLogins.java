@@ -1,5 +1,6 @@
 package com.angelo.loadtestdemo1;
 
+import com.angelo.common.Login;
 import com.angelo.common.WebDriverManagement;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;

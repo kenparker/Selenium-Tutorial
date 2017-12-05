@@ -1,5 +1,6 @@
 package com.angelo.loadtestdemo1;
 
+import com.angelo.common.Login;
 import org.testng.annotations.Test;
 
 public class TestSingleLogin{
