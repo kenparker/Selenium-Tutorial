@@ -10,14 +10,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 
-public class LoginToCampusManagement extends Utility {
+public class LoginManagement extends Utility {
 
     private WebDriver driver;
     private WebElementManagement webElementManagement;
     private CredentialsController cc;
 
-
-    public LoginToCampusManagement(WebDriver driver) {
+    public LoginManagement(WebDriver driver) {
         this.driver = driver;
     }
 

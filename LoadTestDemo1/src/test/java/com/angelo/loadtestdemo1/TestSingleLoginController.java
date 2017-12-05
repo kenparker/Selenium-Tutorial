@@ -1,19 +1,21 @@
 package com.angelo.loadtestdemo1;
 
-import com.angelo.common.Login;
 import org.testng.annotations.Test;
 
-public class TestSingleLogin{
+public class TestSingleLoginController extends TestLogin {
+
 
     @Test(enabled = true)
     public void testOneLoginLocal() {
         String webDriverPropertyFile = "src/main/java/com/angelo/properties/WebDriverAttributes.properties";
-        new Login().doLogin(webDriverPropertyFile);
+        login(webDriverPropertyFile);
+        loginController.close();
     }
 
     @Test(enabled = true)
     public void testOneLoginRemote() {
         String webDriverPropertyFile = "src/main/java/com/angelo/properties/WebDriverAttributes1.properties";
-        new Login().doLogin(webDriverPropertyFile);
+        login(webDriverPropertyFile);
+        loginController.close();
     }
 }

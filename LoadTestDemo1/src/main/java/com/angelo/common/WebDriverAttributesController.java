@@ -10,7 +10,7 @@ public class WebDriverAttributesController {
 
     private final Properties WebDriverAttributes = new Properties();
 
-    public void loadPropertyFile(String srcmainjavacomangelopropertiesWebDriverAt) throws FileNotFoundException, IOException {
+    public void loadPropertyFile(String srcmainjavacomangelopropertiesWebDriverAt) throws IOException {
 
         File file = new File(srcmainjavacomangelopropertiesWebDriverAt);
 
