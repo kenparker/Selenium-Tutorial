@@ -1,20 +1,17 @@
 package com.angelo.visitenkarteTest;
 
-import com.angelo.common.Login;
-import com.angelo.common.WebDriverManagement;
-import com.angelo.loadtestdemo1.LoginToCampusManagement;
+import com.angelo.loadtestdemo1.LoginController;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import java.io.IOException;
 
 import static org.testng.Assert.fail;
 
 
 public class VisitenkarteStudiTest {
 
-    private WebDriverManagement wdm;
+    private LoginController loginController;
+
     @Test
     public void test1() {
         System.out.println("hello 1");
@@ -28,12 +25,10 @@ public class VisitenkarteStudiTest {
     @BeforeMethod
     public void beforeMethod() {
         System.out.println("before method");
-        String webDriverPropertyFile = "src/main/java/com/angelo/properties/WebDriverAttributes.properties";
-        wdm = wdm = new WebDriverManagement();
+        String webDriverPropertyFile = "src/main/java/com/angelo/properties/WebDriverAttributees.properties";
+        loginController = new LoginController();
         try {
-            wdm.build(webDriverPropertyFile);
-            LoginToCampusManagement login = new LoginToCampusManagement(wdm.getWebDriver());
-            login.loginManagement();
+            loginController.login(webDriverPropertyFile);
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -43,7 +38,7 @@ public class VisitenkarteStudiTest {
     @AfterMethod
     public void afterMethod() {
         System.out.println("after method");
-        wdm.getWebDriver().close();
+        loginController.close();
     }
 
 }
