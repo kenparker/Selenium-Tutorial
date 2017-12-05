@@ -1,55 +1,59 @@
 package com.angelo.loadtestdemo1;
 
-import java.io.IOException;
-
 import static org.testng.Assert.fail;
 
+import com.angelo.common.WebDriverManagement;
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class TestLogin extends LoginToCampusManagement {
+public class TestLogin {
+
+    private WebDriverManagement wdm;
+    private String webDriverPropertyFile;
+    private WebDriver driver;
 
     @BeforeClass
     public static void before() {
+
     }
 
-    @Test(invocationCount = 10, threadPoolSize = 5, enabled = true)
-    public static void testLogin() {
+    @Test(invocationCount = 10, threadPoolSize = 5, enabled = false)
+    public void testLogin() {
         testOneLoginLocal();
     }
 
     @Test(enabled = true)
-    public static void testOneLoginLocal() {
-        LoginToCampusManagement login = new LoginToCampusManagement();
-        login.setWebDriverPropertyFile("src/main/java/com/angelo/properties/WebDriverAttributes.properties");
-        try {
-            login(login);
-        } catch (Exception e) {
-            System.out.println("error");
-            fail();
-        }
+    public void testOneLoginLocal() {
+        webDriverPropertyFile = "src/main/java/com/angelo/properties/WebDriverAttributes.properties";
+        login();
     }
 
-    @Test(enabled = false)
-    public static void testOneLoginRemote() {
-        LoginToCampusManagement login = new LoginToCampusManagement();
-        login.setWebDriverPropertyFile("src/main/java/com/angelo/properties/WebDriverAttributes1.properties");
-        try {
-            login(login);
-        } catch (Exception e) {
-            fail();
-        }
+    @Test(enabled = true)
+    public void testOneLoginRemote() {
+        webDriverPropertyFile = "src/main/java/com/angelo/properties/WebDriverAttributes1.properties";
+        login();
     }
 
-    private static void login(LoginToCampusManagement login) throws Exception {
+    private void login() {
+        wdm = new WebDriverManagement();
+        try {
+            wdm.build(webDriverPropertyFile);
+            driver = wdm.getWebDriver();
+            LoginToCampusManagement login = new LoginToCampusManagement(driver);
 
             login.loginManagement();
-            login.driver.quit();
-
+            driver.quit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
     }
+
 
     @AfterClass
     public static void end() {
     }
+
 }

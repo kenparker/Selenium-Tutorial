@@ -1,8 +1,10 @@
-package com.angelo.loadtestdemo1;
+package com.angelo.common;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import com.angelo.common.WebDriverAttributesController;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -20,12 +22,9 @@ public class WebDriverManagement {
         } else {
             buildRemoteWebDriver();
         }
+        driver.get(wdac.getLocation());
     }
 
-    public String getLocation() {
-        return wdac.getLocation();
-    }
-    
     public WebDriver getWebDriver() {
         return driver;
     }

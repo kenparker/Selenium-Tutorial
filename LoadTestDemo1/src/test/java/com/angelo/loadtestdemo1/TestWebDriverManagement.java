@@ -1,6 +1,8 @@
 package com.angelo.loadtestdemo1;
 
 import java.io.IOException;
+
+import com.angelo.common.WebDriverManagement;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 
