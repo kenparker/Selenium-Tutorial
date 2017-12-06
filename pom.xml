@@ -17,10 +17,11 @@
         <module>testNgMavenExample</module>
         <module>TestNgBasicDemo2</module>
         <module>PropertiesFileDemos</module>
-    <module>SauceLabDemo1</module>
-    <module>MavenQuickstart</module>
-    <module>LoadTestDemo1</module>
-    <module>VisitenkarteStudiPage</module>
+        <module>SauceLabDemo1</module>
+        <module>MavenQuickstart</module>
+        <module>LoadTestDemo1</module>
+        <module>VisitenkarteStudiPage</module>
+    <module>SampleAMaggioniPOM</module>
   </modules>
     <dependencies>
         <dependency>
