@@ -22,7 +22,6 @@
             <groupId>com.angelo</groupId>
             <artifactId>LoadTestDemo1</artifactId>
             <version>1.0</version>
-            <scope>test</scope>
             <type>jar</type>
         </dependency>
     </dependencies>

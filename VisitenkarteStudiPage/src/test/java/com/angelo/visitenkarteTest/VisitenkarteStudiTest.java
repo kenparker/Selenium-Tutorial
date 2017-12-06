@@ -1,6 +1,8 @@
 package com.angelo.visitenkarteTest;
 
 import com.angelo.loadtestdemo1.LoginController;
+import com.angelo.page.visitenkartestudipage.VisitenkarteStudi;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -14,10 +16,18 @@ public class VisitenkarteStudiTest {
 
     @Test
     public void test1() {
-        System.out.println("hello 1");
+
+        VisitenkarteStudi visitenkarteStudi = new VisitenkarteStudi(loginController.getDriver());
+        try {
+            WebElement linkToPruefungAnAbmeldung = visitenkarteStudi.getLinkToPruefungAnAbmeldung();
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+
     }
 
-    @Test
+    @Test(enabled = false )
     public void test2() {
         System.out.println("hello 2");
     }
@@ -25,7 +35,7 @@ public class VisitenkarteStudiTest {
     @BeforeMethod
     public void beforeMethod() {
         System.out.println("before method");
-        String webDriverPropertyFile = "src/main/java/com/angelo/properties/WebDriverAttributees.properties";
+        String webDriverPropertyFile = "src/main/java/com/angelo/properties/WebDriverAttributes.properties";
         loginController = new LoginController();
         try {
             loginController.login(webDriverPropertyFile);
@@ -38,7 +48,7 @@ public class VisitenkarteStudiTest {
     @AfterMethod
     public void afterMethod() {
         System.out.println("after method");
-        loginController.close();
+        //loginController.close();
     }
 
 }
