@@ -1,54 +1,37 @@
 package com.angelo.visitenkarteTest;
 
-import com.angelo.loadtestdemo1.LoginController;
-import com.angelo.page.visitenkartestudipage.VisitenkarteStudi;
-import org.openqa.selenium.WebElement;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import com.angelo.pages.VisitenkarteStudi;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.Test;
-
+import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.fail;
 
 
-public class VisitenkarteStudiTest {
-
-    private LoginController loginController;
+public class VisitenkarteStudiTest extends TestBase{
 
     @Test
-    public void test1() {
+    public void testTitel() {
 
-        VisitenkarteStudi visitenkarteStudi = new VisitenkarteStudi(loginController.getDriver());
+        VisitenkarteStudi visitenkarteStudi = PageFactory.initElements(loginController.getDriver(),VisitenkarteStudi.class);
         try {
-            WebElement linkToPruefungAnAbmeldung = visitenkarteStudi.getLinkToPruefungAnAbmeldung();
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
-
-    }
-
-    @Test(enabled = false )
-    public void test2() {
-        System.out.println("hello 2");
-    }
-
-    @BeforeMethod
-    public void beforeMethod() {
-        System.out.println("before method");
-        String webDriverPropertyFile = "src/main/java/com/angelo/properties/WebDriverAttributes.properties";
-        loginController = new LoginController();
-        try {
-            loginController.login(webDriverPropertyFile);
+            String title = visitenkarteStudi.getTitle();
+            assertTrue(title.contains("Visitenkarte"));
         } catch (Exception e) {
             e.printStackTrace();
             fail();
         }
     }
 
-    @AfterMethod
-    public void afterMethod() {
-        System.out.println("after method");
-        //loginController.close();
+    @Test
+    public void testLinkToPruefungsAnAbmeldungIsClickable() {
+
+        VisitenkarteStudi visitenkarteStudi = PageFactory.initElements(loginController.getDriver(),VisitenkarteStudi.class);
+        try {
+            visitenkarteStudi.clicklinkToPruefungAnAbmeldung();
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
     }
 
 }
