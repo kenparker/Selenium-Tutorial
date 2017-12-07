@@ -1,11 +1,10 @@
 package com.angelo.loadtestdemo1;
 
 
+import com.angelo.common.load.CredentialsController;
 import java.io.IOException;
-
-import com.angelo.common.CredentialsController;
-import com.angelo.common.Utility;
-import com.angelo.common.WebElementManagement;
+import com.angelo.common.load.Utility;
+import com.angelo.common.load.WebElementManagement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;

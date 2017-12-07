@@ -1,4 +1,4 @@
-package com.angelo.common;
+package com.angelo.common.load;
 
 import java.io.File;
 import java.io.FileInputStream;

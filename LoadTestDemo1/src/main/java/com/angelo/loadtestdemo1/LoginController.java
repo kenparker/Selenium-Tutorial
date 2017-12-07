@@ -1,6 +1,6 @@
 package com.angelo.loadtestdemo1;
 
-import com.angelo.common.WebDriverManagement;
+import com.angelo.common.load.WebDriverManagement;
 import org.openqa.selenium.WebDriver;
 
 public class LoginController {

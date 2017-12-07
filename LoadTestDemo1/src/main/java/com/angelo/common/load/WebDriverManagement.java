@@ -1,11 +1,9 @@
-package com.angelo.common;
+package com.angelo.common.load;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import com.angelo.common.WebDriverAttributesController;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;

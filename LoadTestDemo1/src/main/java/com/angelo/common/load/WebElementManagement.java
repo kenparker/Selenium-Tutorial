@@ -1,4 +1,4 @@
-package com.angelo.common;
+package com.angelo.common.load;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
