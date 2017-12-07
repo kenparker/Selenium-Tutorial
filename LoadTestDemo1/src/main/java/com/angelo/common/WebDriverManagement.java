@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import com.angelo.common.WebDriverAttributesController;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -23,6 +24,8 @@ public class WebDriverManagement {
             buildRemoteWebDriver();
         }
         driver.get(wdac.getLocation());
+        //Dimension d = new Dimension(1024,786);
+        //driver.manage().window().setSize(d);
     }
 
     public WebDriver getWebDriver() {
