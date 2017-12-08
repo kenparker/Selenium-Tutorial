@@ -5,13 +5,20 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.Test;
 import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.fail;
+import org.testng.annotations.BeforeTest;
 
 public class VisitenkarteStudiTest extends TestBase {
 
-    @Test(enabled = true)
+    protected VisitenkarteStudi visitenkarteStudi;
+    
+    @BeforeTest
+    public void beforeVisitenkarte() {
+         visitenkarteStudi = PageFactory.initElements(loginController.getDriver(), VisitenkarteStudi.class);     
+    }
+    
+    @Test(enabled = true, priority = 0)
     public void testTitel() {
 
-        VisitenkarteStudi visitenkarteStudi = PageFactory.initElements(loginController.getDriver(), VisitenkarteStudi.class);
         try {
             String title = visitenkarteStudi.getTitle();
             assertTrue(title.contains("Visitenkarte"));
@@ -21,10 +28,9 @@ public class VisitenkarteStudiTest extends TestBase {
         }
     }
 
-    @Test(enabled = true)
+    @Test(enabled = true, priority = 0)
     public void testLinkToPruefungsAnAbmeldungIsClickable() {
 
-        VisitenkarteStudi visitenkarteStudi = PageFactory.initElements(loginController.getDriver(), VisitenkarteStudi.class);
         try {
             boolean linkToPruefungAnAbmeldungClickable = visitenkarteStudi.islinkToPruefungAnAbmeldungClickable();
             assertTrue(linkToPruefungAnAbmeldungClickable);
@@ -34,10 +40,9 @@ public class VisitenkarteStudiTest extends TestBase {
         }
     }
 
-    @Test(enabled = true)
+    @Test(enabled = true, priority = 0)
     public void testVerifyUrl() {
 
-        VisitenkarteStudi visitenkarteStudi = PageFactory.initElements(loginController.getDriver(), VisitenkarteStudi.class);
         try {
             visitenkarteStudi.verifyPageUrl();
         } catch (Exception e) {
@@ -46,10 +51,9 @@ public class VisitenkarteStudiTest extends TestBase {
         }
     }
 
-    @Test(enabled = true)
+    @Test(enabled = true, priority = 0)
     public void testVerifyPageIsCorrect() {
 
-        VisitenkarteStudi visitenkarteStudi = PageFactory.initElements(loginController.getDriver(), VisitenkarteStudi.class);
         try {
             visitenkarteStudi.verifyPageLoaded();
         } catch (Exception e) {
