@@ -10,7 +10,7 @@ public class TestBase {
     protected LoginController loginController;
 
     @BeforeMethod
-    public void beforeMethod() {
+    public void before() {
         System.out.println("before method");
         String webDriverPropertyFile = "src/main/java/com/angelo/properties/WebDriverAttributes.properties";
         loginController = new LoginController();
@@ -24,7 +24,7 @@ public class TestBase {
 
 
     @AfterMethod
-    public void afterMethod() {
+    public void after() {
         System.out.println("after method");
         loginController.close();
     }

@@ -6,13 +6,12 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.fail;
 
+public class VisitenkarteStudiTest extends TestBase {
 
-public class VisitenkarteStudiTest extends TestBase{
-
-    @Test
+    @Test(enabled = true)
     public void testTitel() {
 
-        VisitenkarteStudi visitenkarteStudi = PageFactory.initElements(loginController.getDriver(),VisitenkarteStudi.class);
+        VisitenkarteStudi visitenkarteStudi = PageFactory.initElements(loginController.getDriver(), VisitenkarteStudi.class);
         try {
             String title = visitenkarteStudi.getTitle();
             assertTrue(title.contains("Visitenkarte"));
@@ -22,12 +21,37 @@ public class VisitenkarteStudiTest extends TestBase{
         }
     }
 
-    @Test
+    @Test(enabled = true)
     public void testLinkToPruefungsAnAbmeldungIsClickable() {
 
-        VisitenkarteStudi visitenkarteStudi = PageFactory.initElements(loginController.getDriver(),VisitenkarteStudi.class);
+        VisitenkarteStudi visitenkarteStudi = PageFactory.initElements(loginController.getDriver(), VisitenkarteStudi.class);
         try {
-            visitenkarteStudi.clicklinkToPruefungAnAbmeldung();
+            boolean linkToPruefungAnAbmeldungClickable = visitenkarteStudi.islinkToPruefungAnAbmeldungClickable();
+            assertTrue(linkToPruefungAnAbmeldungClickable);
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+    @Test(enabled = true)
+    public void testVerifyUrl() {
+
+        VisitenkarteStudi visitenkarteStudi = PageFactory.initElements(loginController.getDriver(), VisitenkarteStudi.class);
+        try {
+            visitenkarteStudi.verifyPageUrl();
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+    @Test(enabled = true)
+    public void testVerifyPageIsCorrect() {
+
+        VisitenkarteStudi visitenkarteStudi = PageFactory.initElements(loginController.getDriver(), VisitenkarteStudi.class);
+        try {
+            visitenkarteStudi.verifyPageLoaded();
         } catch (Exception e) {
             e.printStackTrace();
             fail();
