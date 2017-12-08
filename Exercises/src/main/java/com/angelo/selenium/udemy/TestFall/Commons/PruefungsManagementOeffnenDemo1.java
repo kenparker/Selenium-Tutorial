@@ -13,7 +13,7 @@ public class PruefungsManagementOeffnenDemo1 extends NavigateToHomeDemo1 {
 
     protected static void zuPruefungsmanagementMenueNavigieren() {
         switchToFrameDetail();
-        final By PruefungsManagementLink = By.cssSelector("a[title='PrÃ¼fungsmanagement']");
+        final By PruefungsManagementLink = By.cssSelector("a[title='Prüfungsmanagement']");
         checkAndReturnElement(PruefungsManagementLink, 2).click();
         doPINAnmeldung();
     }
