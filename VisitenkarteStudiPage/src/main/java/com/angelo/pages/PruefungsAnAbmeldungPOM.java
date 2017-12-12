@@ -5,27 +5,27 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class PruefungsAnAbmeldungPOM extends BasePage{
 
-    private final String pageLoadedText = "...";
+    private final String pageLoadedText = "Prüfungsan-/abmeldung - Prüfungstermine";
     private final String pageUrl = "...";
 
     @FindBy(css = "#idTabSearch")
     @CacheLookup
     private WebElement idTabSearch;
 
-    @FindBy(css = "#idExamSearchMainMask #idExamSearchTerm")
+    @FindBy(css = "a[id*='tab_button']")
     @CacheLookup
-    private WebElement searchField;
-
-    @FindBy(css = "#idExamSearchButton")
-    @CacheLookup
-    private WebElement examSearchButton;
+    private WebElement meinePruefungsTermine;
 
     public PruefungsAnAbmeldungPOM(WebDriver driver) {
         super(driver);
         this.driver = driver;
+        PageFactory.initElements(this.driver, this);
     }
 
     public boolean isIdTabSearchClickable() {
@@ -33,39 +33,33 @@ public class PruefungsAnAbmeldungPOM extends BasePage{
         return true;
     }
 
+    public boolean isMeinePruefungsTermineClickable() {
+        getWebElementIfClickable(meinePruefungsTermine);
+        return true;
+    }
+
     public PruefungsAnAbmeldungPOM clickIdTabSearch() {
         click(idTabSearch);
-        isSearchFieldClickable();
         return this;
     }
 
-    public boolean isSearchFieldClickable() {
-        getWebElementIfClickable(searchField);
-        return true;
-    }
-
-    private PruefungsAnAbmeldungPOM setSearchField(String examSearch) {
-        sendKeys(searchField,examSearch);
+    public PruefungsAnAbmeldungPOM clickmeinePruefungsTermine() {
+        click(meinePruefungsTermine);
         return this;
     }
 
-    public boolean isExamSearchButtonClickable() {
-        getWebElementIfClickable(examSearchButton);
-        return true;
+    public PruefungsAnAbmeldungSuchePOM moveToIdTabSearch() {
+        click(idTabSearch);
+        PruefungsAnAbmeldungSuchePOM pruefungsAnAbmeldungSuchePOM = new PruefungsAnAbmeldungSuchePOM(this.driver);
+        return pruefungsAnAbmeldungSuchePOM;
     }
 
-    private PruefungsAnAbmeldungPOM submitSearch() {
-        click(examSearchButton);
-        return this;
-    }
-
-    public PruefungsAnAbmeldungPOM searchExamByNumber(String examNumber) {
-        setSearchField(examNumber);
-        submitSearch();
-        return this;
-    }
-
-    public PruefungsAnAbmeldungPOM searchExamByName(String examName) {
+    public PruefungsAnAbmeldungPOM verifyPageLoaded() {
+        (new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
+            public Boolean apply(WebDriver d) {
+                return d.getPageSource().contains(pageLoadedText);
+            }
+        });
         return this;
     }
     /*

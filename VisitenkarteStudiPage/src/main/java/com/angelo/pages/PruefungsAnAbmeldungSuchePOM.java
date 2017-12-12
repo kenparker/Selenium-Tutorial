@@ -5,15 +5,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class PruefungsAnAbmeldungSuchePOM extends BasePage{
 
-    private final String pageLoadedText = "...";
+    private final String pageLoadedText = "Prüfungssuche";
     private final String pageUrl = "...";
-
-    @FindBy(css = "#idTabSearch")
-    @CacheLookup
-    private WebElement idTabSearch;
 
     @FindBy(css = "#idExamSearchMainMask #idExamSearchTerm")
     @CacheLookup
@@ -26,17 +25,7 @@ public class PruefungsAnAbmeldungSuchePOM extends BasePage{
     public PruefungsAnAbmeldungSuchePOM(WebDriver driver) {
         super(driver);
         this.driver = driver;
-    }
-
-    public boolean isIdTabSearchClickable() {
-        getWebElementIfClickable(idTabSearch);
-        return true;
-    }
-
-    public PruefungsAnAbmeldungSuchePOM clickIdTabSearch() {
-        click(idTabSearch);
-        isSearchFieldClickable();
-        return this;
+        PageFactory.initElements(this.driver, this);
     }
 
     public boolean isSearchFieldClickable() {
@@ -66,6 +55,16 @@ public class PruefungsAnAbmeldungSuchePOM extends BasePage{
     }
 
     public PruefungsAnAbmeldungSuchePOM searchExamByName(String examName) {
+        return this;
+    }
+
+
+    public PruefungsAnAbmeldungSuchePOM verifyPageLoaded() {
+        (new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
+            public Boolean apply(WebDriver d) {
+                return d.getPageSource().contains(pageLoadedText);
+            }
+        });
         return this;
     }
     /*
