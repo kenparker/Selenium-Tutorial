@@ -8,18 +8,17 @@ import static org.testng.Assert.fail;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-public class PruefungsAnAbmeldungTest extends VisitenkarteStudiTest{
+public class PruefungsAnAbmeldungPOMTest extends VisitenkarteStudiTest{
 
     protected PruefungsAnAbmeldungPOM pruefungsAnAbmeldung;
 
     @BeforeTest
-    public void beforePriefungsAnAbmeldung() {
+    public void beforePruefungsAnAbmeldung() {
         pruefungsAnAbmeldung = new PruefungsAnAbmeldungPOM(loginController.getDriver());
     }
 
     @Test(enabled = true, priority = 1)
     public void testClickLinkToPruefungAnAbmeldung() {
-    
         try {
             visitenkarteStudi.clicklinkToPruefungAnAbmeldung();
         } catch (Exception e) {
@@ -37,7 +36,6 @@ public class PruefungsAnAbmeldungTest extends VisitenkarteStudiTest{
             fail();
         }
     }
-
 
     @Test(enabled = true, priority = 2)
     public void testLinkToMeinePruefungsTermineIsClickable() {
@@ -59,18 +57,6 @@ public class PruefungsAnAbmeldungTest extends VisitenkarteStudiTest{
         }
     }
 
-
-    @Test(enabled = true, dependsOnMethods = "testLinkToSearchIsClickable", priority = 2)
-    public void testMoveToLinkToSearch() {
-        try {
-            PruefungsAnAbmeldungSuchePOM pruefungsAnAbmeldungSuchePOM = pruefungsAnAbmeldung.moveToIdTabSearch();
-            pruefungsAnAbmeldungSuchePOM.verifyPageLoaded();
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
-    }
-
     @Test(enabled = true, dependsOnMethods = "testLinkToMeinePruefungsTermineIsClickable", priority = 2)
     public void testClickLinkToMeinePruefungsTermine() {
         try {
@@ -80,15 +66,4 @@ public class PruefungsAnAbmeldungTest extends VisitenkarteStudiTest{
             fail();
         }
     }
-    /*
-    @Test(enabled = true, dependsOnMethods = "testLinkToSearchIsClickable", priority = 3)
-    public void testSearchExamByNumber() {
-        try {
-            pruefungsAnAbmeldung.searchExamByNumber("IN");
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
-    }
-    */
 }

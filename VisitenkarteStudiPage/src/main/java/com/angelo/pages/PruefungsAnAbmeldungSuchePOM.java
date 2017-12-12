@@ -71,6 +71,7 @@ public class PruefungsAnAbmeldungSuchePOM extends BasePage{
 
     By tabellePruefungsTermine = By.cssSelector("#idExamOfferTable");
     By tabellePruefungsTermineAlleZeilen = By.cssSelector("#idExamOfferTable tr");
+    #idExamOfferTable  [class*="coTable"] > td:nth-child(2) oder #idExamOfferTable   td:nth-child(2)
     By spaltePruefungsterminNummer = By.cssSelector("td:nth-child(2)");
     By spalteAnmeldeButton = By.cssSelector("td:nth-child(11) > a");
     
