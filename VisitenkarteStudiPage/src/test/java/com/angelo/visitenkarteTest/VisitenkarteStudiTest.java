@@ -1,6 +1,6 @@
 package com.angelo.visitenkarteTest;
 
-import com.angelo.pages.VisitenkarteStudi;
+import com.angelo.pages.VisitenkarteStudiPOM;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.Test;
 import static org.testng.Assert.assertTrue;
@@ -9,11 +9,11 @@ import org.testng.annotations.BeforeTest;
 
 public class VisitenkarteStudiTest extends TestBase {
 
-    protected VisitenkarteStudi visitenkarteStudi;
+    protected VisitenkarteStudiPOM visitenkarteStudi;
     
     @BeforeTest
     public void beforeVisitenkarte() {
-         visitenkarteStudi = PageFactory.initElements(loginController.getDriver(), VisitenkarteStudi.class);     
+         visitenkarteStudi = new VisitenkarteStudiPOM(loginController.getDriver());
     }
     
     @Test(enabled = true, priority = 0)

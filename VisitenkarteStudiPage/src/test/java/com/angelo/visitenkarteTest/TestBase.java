@@ -28,6 +28,6 @@ public class TestBase {
     @AfterTest
     public void after() {
         System.out.println("after method");
-        loginController.close();
+        //loginController.close();
     }
 }
