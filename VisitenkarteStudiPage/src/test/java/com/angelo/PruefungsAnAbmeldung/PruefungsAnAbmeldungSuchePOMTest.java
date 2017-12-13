@@ -1,6 +1,7 @@
 package com.angelo.PruefungsAnAbmeldung;
 
 import com.angelo.pages.PruefungsAnAbmeldungSuchePOM;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -31,6 +32,10 @@ public class PruefungsAnAbmeldungSuchePOMTest extends PruefungsAnAbmeldungPOMTes
     public void testSearchExamByNumber() {
         try {
             pruefungsAnAbmeldungSuchePOM.searchExamByNumber("IN");
+            WebElement tabellePruefungsTermine = pruefungsAnAbmeldungSuchePOM.getTabellePruefungsTermine();
+            //for (int i = 1; i<=2 ; i++) {
+            //    Thread.sleep(1000);
+            //}
         } catch (Exception e) {
             e.printStackTrace();
             fail();
