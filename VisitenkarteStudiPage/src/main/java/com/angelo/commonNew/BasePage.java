@@ -38,12 +38,12 @@ public class BasePage {
         return wait.until(ExpectedConditions.elementToBeClickable(by));
     }
 
-    public boolean isElementReady(By by) {
-        WebElement element = getWebElementIfReady(by);
+    public Boolean isElementVisible(By by) {
+        WebElement element = getWebElementIfVisible(by);
         return element != null;
     }
 
-    public boolean isElementPresent(By by) {
+    public Boolean isElementPresent(By by) {
         WebElement element = getWebElementIfPresent(by);
         return element != null;
     }
@@ -58,30 +58,38 @@ public class BasePage {
 
     public Boolean isElementNowDisabled(WebElement element) {
         String disabled = element.getAttribute("disabled");
-        if (disabled != null && disabled.equals("true")) return true;
-        return false;
+        return disabled != null && disabled.equals("true");
     }
 
-    public WebElement getWebElementIfReady(By by) {
-        jsWaiter.waitUntilJSReady();
-        jsWaiter.waitUntilJQueryReady();
+    public WebElement getWebElementIfVisible(By by) {
+        waiter();
         return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
 
     public WebElement getWebElementIfPresent(By by) {
-        jsWaiter.waitUntilJSReady();
+        waiter();
         return wait.until(ExpectedConditions.presenceOfElementLocated(by));
     }
 
     public WebElement getWebElementIfClickable(WebElement webElement) {
-        jsWaiter.waitUntilJSReady();
+        waiter();
         return wait.until(ExpectedConditions.elementToBeClickable(webElement));
+    }
+
+    public Boolean isSpinnerReady() {
+        ExpectedCondition<Boolean> spinner = (WebDriver driver) -> !driver.getPageSource().contains("loading_24x24.gif");
+        return wait.until(spinner);     
+    }
+    
+    private void waiter() {
+        jsWaiter.waitUntilJSReady();
+        jsWaiter.waitUntilJQueryReady();
     }
 
     public String getTitle() {
         return driver.getTitle();
     }
-
+    
     public void listAllElements(String xPath) {
         List<WebElement> findElementsInFrame = driver.findElements(By.xpath(xPath));
         System.out.println("-->>elements in Frame size :" + findElementsInFrame.size());
@@ -97,6 +105,7 @@ public class BasePage {
     }
 
     class WebElementIsEnabled implements ExpectedCondition<Boolean> {
+
         private WebElement element;
 
         public WebElementIsEnabled(WebElement element) {
@@ -110,6 +119,7 @@ public class BasePage {
     }
 
     class WebElementIsDisabled implements ExpectedCondition<Boolean> {
+
         private WebElement element;
 
         public WebElementIsDisabled(WebElement element) {
@@ -123,5 +133,3 @@ public class BasePage {
     }
 
 }
-
-

@@ -33,9 +33,6 @@ public class PruefungsAnAbmeldungSuchePOMTest extends PruefungsAnAbmeldungPOMTes
         try {
             pruefungsAnAbmeldungSuchePOM.searchExamByNumber("IN");
             WebElement tabellePruefungsTermine = pruefungsAnAbmeldungSuchePOM.getTabellePruefungsTermine();
-            //for (int i = 1; i<=2 ; i++) {
-            //    Thread.sleep(1000);
-            //}
         } catch (Exception e) {
             e.printStackTrace();
             fail();

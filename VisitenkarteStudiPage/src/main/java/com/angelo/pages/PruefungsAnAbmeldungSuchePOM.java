@@ -40,41 +40,17 @@ public class PruefungsAnAbmeldungSuchePOM extends BasePage{
         return true;
     }
 
-    public boolean isTabellePruefungsTermineReady() {
-        return isElementReady(tabellePruefungsTermine);
+    public boolean isTabellePruefungsTermineVisible() {
+        return isElementVisible(tabellePruefungsTermine);
     }
 
     public WebElement getTabellePruefungsTermine() {
-        waitUntilEnabled2();
+        isElementEnabled(examSearchButton);
         System.out.println("-> search button is : " + isElementNowDisabled(examSearchButton));
-        WebElement webElementIfReady = getWebElementIfReady(tabellePruefungsTermine);
+        WebElement webElementIfReady = getWebElementIfVisible(tabellePruefungsTermine);
         listAllElements(webElementIfReady);
         return webElementIfReady;
     }
-
-    private void waitUntilEnabled2() {
-        isElementEnabled(examSearchButton);
-    }
-
-    private void waitUntilEnabled1() {
-        int i = 1;
-        while (isElementDisabled(examSearchButton)) {
-            try {
-                System.out.println("/ "+ i++);
-                System.out.println("isEnabled   " + examSearchButton.isEnabled());
-                boolean contains = driver.getPageSource().contains("loading_24x24.gif");
-                System.out.println("isLoading   " + contains);
-                Thread.sleep(20);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void waitUntilLoading() {
-        boolean contains = driver.getPageSource().contains("loading_24x24.gif");
-    }
-
 
     private PruefungsAnAbmeldungSuchePOM setSearchField(String examSearch) {
         sendKeys(searchField,examSearch);
