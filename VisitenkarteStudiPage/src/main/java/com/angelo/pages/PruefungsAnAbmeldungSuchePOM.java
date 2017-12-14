@@ -58,7 +58,7 @@ public class PruefungsAnAbmeldungSuchePOM extends BasePage{
 
     private void waitUntilEnabled1() {
         int i = 1;
-        while (isElementNowDisabled(examSearchButton)) {
+        while (isElementDisabled(examSearchButton)) {
             try {
                 System.out.println("/ "+ i++);
                 System.out.println("isEnabled   " + examSearchButton.isEnabled());
