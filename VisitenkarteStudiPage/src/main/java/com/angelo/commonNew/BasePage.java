@@ -5,6 +5,7 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -47,16 +48,19 @@ public class BasePage {
         return element != null;
     }
 
-    public boolean isElementDisabled(By by) {
-        String disabled = driver.findElement(by).getAttribute("disabled");
+    public Boolean isElementDisabled(WebElement element) {
+        String disabled = element.getAttribute("disabled");
         if (disabled != null && disabled.equals("true")) return true;
         return false;
     }
 
-    public boolean isElementDisabled(WebElement element) {
-        String disabled = element.getAttribute("disabled");
-        if (disabled != null && disabled.equals("true")) return true;
-        return false;
+    public Boolean isElementEnabled(WebElement element) {
+        try {
+            return wait.until(new WebElementIsEnabled(element));
+        } catch (Exception e) {
+            System.out.println("->> Disabled");
+        }
+        return true;
     }
 
     public WebElement getWebElementIfReady(By by) {
@@ -92,4 +96,22 @@ public class BasePage {
                 element -> System.out.println(element.getTagName() + " " + element.getAttribute("id"))
         );
     }
+
+    class WebElementIsEnabled implements ExpectedCondition<Boolean> {
+        private WebElement element;
+
+        public WebElementIsEnabled(WebElement element) {
+            this.element = element;
+        }
+
+        @Override
+        public Boolean apply(WebDriver driver) {
+            return !isElementDisabled(this.element);
+        }
+
+
+    }
+
 }
+
+

@@ -10,8 +10,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.List;
-
 public class PruefungsAnAbmeldungSuchePOM extends BasePage{
 
     private final String pageLoadedText = "Prüfungssuche";
@@ -47,23 +45,30 @@ public class PruefungsAnAbmeldungSuchePOM extends BasePage{
     }
 
     public WebElement getTabellePruefungsTermine() {
-
-        waitUntilEnabled();
+        waitUntilEnabled2();
         System.out.println("-> search button is : " + isElementDisabled(examSearchButton));
         WebElement webElementIfReady = getWebElementIfReady(tabellePruefungsTermine);
         listAllElements(webElementIfReady);
         return webElementIfReady;
     }
 
-    private void waitUntilEnabled() {
+    private void waitUntilEnabled2() {
+        int i = 1;
+        while (!isElementEnabled(examSearchButton)) {
+            System.out.println("/ "+ i++);
+            System.out.println("isEnabled   " + examSearchButton.isEnabled());
+            boolean contains = driver.getPageSource().contains("loading_24x24.gif");
+            System.out.println("isLoading   " + contains);
+
+        }
+    }
+
+    private void waitUntilEnabled1() {
+        int i = 1;
         while (isElementDisabled(examSearchButton)) {
             try {
-                System.out.println("/");
-                System.out.println("isdisplayed " + examSearchButton.isDisplayed());
+                System.out.println("/ "+ i++);
                 System.out.println("isEnabled   " + examSearchButton.isEnabled());
-                System.out.println("isSelected  " + examSearchButton.isSelected());
-                //List<WebElement> elements = driver.findElements(By.cssSelector("#idExamSearchButton"));
-                //System.out.println("at least    " + (elements.size()>0));
                 boolean contains = driver.getPageSource().contains("loading_24x24.gif");
                 System.out.println("isLoading   " + contains);
                 Thread.sleep(20);
