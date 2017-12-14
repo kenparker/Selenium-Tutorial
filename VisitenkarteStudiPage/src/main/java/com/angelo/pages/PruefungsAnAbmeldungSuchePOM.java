@@ -46,26 +46,19 @@ public class PruefungsAnAbmeldungSuchePOM extends BasePage{
 
     public WebElement getTabellePruefungsTermine() {
         waitUntilEnabled2();
-        System.out.println("-> search button is : " + isElementDisabled(examSearchButton));
+        System.out.println("-> search button is : " + isElementNowDisabled(examSearchButton));
         WebElement webElementIfReady = getWebElementIfReady(tabellePruefungsTermine);
         listAllElements(webElementIfReady);
         return webElementIfReady;
     }
 
     private void waitUntilEnabled2() {
-        int i = 1;
-        while (!isElementEnabled(examSearchButton)) {
-            System.out.println("/ "+ i++);
-            System.out.println("isEnabled   " + examSearchButton.isEnabled());
-            boolean contains = driver.getPageSource().contains("loading_24x24.gif");
-            System.out.println("isLoading   " + contains);
-
-        }
+        isElementEnabled(examSearchButton);
     }
 
     private void waitUntilEnabled1() {
         int i = 1;
-        while (isElementDisabled(examSearchButton)) {
+        while (isElementNowDisabled(examSearchButton)) {
             try {
                 System.out.println("/ "+ i++);
                 System.out.println("isEnabled   " + examSearchButton.isEnabled());

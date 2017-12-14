@@ -48,19 +48,18 @@ public class BasePage {
         return element != null;
     }
 
+    public Boolean isElementEnabled(WebElement element) {
+        return wait.until(new WebElementIsEnabled(element));
+    }
+
     public Boolean isElementDisabled(WebElement element) {
+        return wait.until(new WebElementIsDisabled(element));
+    }
+
+    public Boolean isElementNowDisabled(WebElement element) {
         String disabled = element.getAttribute("disabled");
         if (disabled != null && disabled.equals("true")) return true;
         return false;
-    }
-
-    public Boolean isElementEnabled(WebElement element) {
-        try {
-            return wait.until(new WebElementIsEnabled(element));
-        } catch (Exception e) {
-            System.out.println("->> Disabled");
-        }
-        return true;
     }
 
     public WebElement getWebElementIfReady(By by) {
@@ -106,10 +105,21 @@ public class BasePage {
 
         @Override
         public Boolean apply(WebDriver driver) {
-            return !isElementDisabled(this.element);
+            return !isElementNowDisabled(this.element);
+        }
+    }
+
+    class WebElementIsDisabled implements ExpectedCondition<Boolean> {
+        private WebElement element;
+
+        public WebElementIsDisabled(WebElement element) {
+            this.element = element;
         }
 
-
+        @Override
+        public Boolean apply(WebDriver driver) {
+            return isElementNowDisabled(this.element);
+        }
     }
 
 }
