@@ -1,6 +1,7 @@
 package com.angelo.pages;
 
 import com.angelo.commonNew.BasePage;
+import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -46,12 +47,23 @@ public class PruefungsAnAbmeldungSuchePOM extends BasePage{
 
     public WebElement getTabellePruefungsTermine() {
         isElementEnabled(examSearchButton);
-        System.out.println("-> search button is : " + isElementNowDisabled(examSearchButton));
         WebElement webElementIfReady = getWebElementIfVisible(tabellePruefungsTermine);
-        listAllElements(webElementIfReady);
+        traverseTabellePruefungsTermine(webElementIfReady);
         return webElementIfReady;
     }
 
+    public void traverseTabellePruefungsTermine(WebElement table) {
+        List<WebElement> findElements = table.findElements(tabellePruefungsTermineZeile);
+        System.out.println("total elements : " + findElements.size() );
+        findElements.forEach(element -> doSomething(element));
+    }
+
+    private void doSomething(WebElement element) {
+        String terminNumber = element.findElement(tabellePruefungsTermineSpalteNummer).getText();
+        String anmeldeButton = element.findElement(tabellePruefungsTermineSpalteAnmeldenButton).getAttribute("title");
+        System.out.printf("\n termin %-10s  anmeldebutton %s",terminNumber,anmeldeButton);
+    }
+    
     private PruefungsAnAbmeldungSuchePOM setSearchField(String examSearch) {
         sendKeys(searchField,examSearch);
         return this;
