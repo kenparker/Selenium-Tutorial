@@ -22,6 +22,7 @@
         <module>LoadTestDemo1</module>
         <module>VisitenkarteStudiPage</module>
         <module>SampleAMaggioniPOM</module>
+        <module>TestNgBasicWithTestngxml</module>
     </modules>
     <dependencies>
         <dependency>
