@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.angelo.selenium.udemy</groupId>
     <artifactId>SeleniumDemos</artifactId>
@@ -12,7 +13,6 @@
         <module>HowToRunTestWithChrome</module>
         <module>Frames</module>
         <module>Exercises</module>
-        <module>TestNGBasics</module>
         <module>TestNgBasicDemo1</module>
         <module>testNgMavenExample</module>
         <module>TestNgBasicDemo2</module>
@@ -23,6 +23,7 @@
         <module>VisitenkarteStudiPage</module>
         <module>SampleAMaggioniPOM</module>
         <module>TestNgBasicWithTestngxml</module>
+        <module>TestNGPlayingWithTestngFiles</module>
     </modules>
     <dependencies>
         <dependency>
