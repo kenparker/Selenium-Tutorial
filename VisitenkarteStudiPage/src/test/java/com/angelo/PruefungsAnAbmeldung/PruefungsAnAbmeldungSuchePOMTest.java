@@ -2,6 +2,7 @@ package com.angelo.PruefungsAnAbmeldung;
 
 import com.angelo.pages.PruefungsAnAbmeldungSuchePOM;
 import org.openqa.selenium.WebElement;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -11,7 +12,7 @@ public class PruefungsAnAbmeldungSuchePOMTest extends PruefungsAnAbmeldungPOMTes
 
     protected PruefungsAnAbmeldungSuchePOM pruefungsAnAbmeldungSuchePOM;
 
-    @BeforeTest
+    @BeforeClass
     public void beforePruefungsSuche() {
 
     }

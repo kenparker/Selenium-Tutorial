@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="SmokeSuite" verbose="5">
+<suite name="SmokeSuite1" verbose="5">
 
-    <test name="SmokeTest">
+    <test name="SmokeTest1">
        <classes>
-
            <class name="com.angelo.visitenkarteTest.TestJSWaiter"/>
            <class name="com.angelo.visitenkarteTest.VisitenkarteStudiTest"/>
        </classes>
