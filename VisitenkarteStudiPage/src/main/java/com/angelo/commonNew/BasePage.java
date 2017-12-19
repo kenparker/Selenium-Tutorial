@@ -30,7 +30,9 @@ public class BasePage {
     }
 
     public void sendKeys(WebElement webElement, String key) {
-        getWebElementIfClickable(webElement).sendKeys(key);
+        WebElement webElementIfClickable = getWebElementIfClickable(webElement);
+        webElementIfClickable.clear();
+        webElementIfClickable.sendKeys(key);
     }
 
     public WebElement getWebElementIfClickable(By by) {

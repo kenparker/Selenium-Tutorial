@@ -1,7 +1,9 @@
 package com.angelo.pages;
 
 import com.angelo.commonNew.BasePage;
+
 import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,7 +13,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class PruefungsAnAbmeldungSuchePOM extends BasePage{
+public class PruefungsAnAbmeldungSuchePOM extends BasePage {
 
     private final String pageLoadedText = "Prüfungssuche";
     private final String pageUrl = "...";
@@ -24,10 +26,11 @@ public class PruefungsAnAbmeldungSuchePOM extends BasePage{
     @CacheLookup
     private WebElement examSearchButton;
 
-    By tabellePruefungsTermine = By.cssSelector("#idExamOfferTable");
-    By tabellePruefungsTermineZeile = By.cssSelector("#idExamOfferTable [class*='coTableR']");
-    By tabellePruefungsTermineSpalteNummer = By.cssSelector("td:nth-child(2)");
-    By tabellePruefungsTermineSpalteAnmeldenButton = By.cssSelector("td:nth-child(11) > a");
+    private By tabellePruefungsTermine = By.cssSelector("#idExamOfferTable");
+    private By tabellePruefungsTermineZeile = By.cssSelector("#idExamOfferTable [class*='coTableR']");
+    private By tabellePruefungsTermineSpalteNummer = By.cssSelector("td:nth-child(2)");
+    private By tabellePruefungsTermineSpalteTitel = By.cssSelector("td:nth-child(5) > div:nth-child(1) > span:nth-child(1)");
+    private By tabellePruefungsTermineSpalteAnmeldenButton = By.cssSelector("td:nth-child(11) > a");
 
 
     public PruefungsAnAbmeldungSuchePOM(WebDriver driver) {
@@ -45,27 +48,37 @@ public class PruefungsAnAbmeldungSuchePOM extends BasePage{
         return isElementVisible(tabellePruefungsTermine);
     }
 
-    public WebElement getTabellePruefungsTermine() {
+    public Boolean isSearchResultsCorrect(String search) {
         isElementEnabled(examSearchButton);
-        WebElement webElementIfReady = getWebElementIfVisible(tabellePruefungsTermine);
-        traverseTabellePruefungsTermine(webElementIfReady);
-        return webElementIfReady;
+        WebElement webElementTablePruefungsTermine = getWebElementIfVisible(tabellePruefungsTermine);
+        try {
+            checkTabellePruefungsTermine(webElementTablePruefungsTermine, search.toLowerCase());
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
     }
 
-    public void traverseTabellePruefungsTermine(WebElement table) {
-        List<WebElement> findElements = table.findElements(tabellePruefungsTermineZeile);
-        System.out.println("total elements : " + findElements.size() );
-        findElements.forEach(element -> doSomething(element));
+    private void checkTabellePruefungsTermine(WebElement table, String search) throws Exception {
+        List<WebElement> getAllRows = table.findElements(tabellePruefungsTermineZeile);
+        System.out.println("total elements : " + getAllRows.size());
+        for (WebElement row : getAllRows) checkRow(row, search);
     }
 
-    private void doSomething(WebElement element) {
+    private void checkRow(WebElement element, String search) throws Exception {
         String terminNumber = element.findElement(tabellePruefungsTermineSpalteNummer).getText();
+        String terminTitel = element.findElement(tabellePruefungsTermineSpalteTitel).getText();
         String anmeldeButton = element.findElement(tabellePruefungsTermineSpalteAnmeldenButton).getAttribute("title");
-        System.out.printf("\n termin %-10s  anmeldebutton %s",terminNumber,anmeldeButton);
+        if (terminNumber.toLowerCase().contains(search) || terminTitel.toLowerCase().contains(search)) {
+            System.out.printf("\n termin >%-10s<  titel >%s< anmeldebutton >%s<", terminNumber, terminTitel, anmeldeButton);
+        } else {
+            throw new Exception();
+        }
     }
-    
+
     private PruefungsAnAbmeldungSuchePOM setSearchField(String examSearch) {
-        sendKeys(searchField,examSearch);
+        sendKeys(searchField, examSearch);
         return this;
     }
 
@@ -86,6 +99,8 @@ public class PruefungsAnAbmeldungSuchePOM extends BasePage{
     }
 
     public PruefungsAnAbmeldungSuchePOM searchExamByName(String examName) {
+        setSearchField(examName);
+        submitSearch();
         return this;
     }
 

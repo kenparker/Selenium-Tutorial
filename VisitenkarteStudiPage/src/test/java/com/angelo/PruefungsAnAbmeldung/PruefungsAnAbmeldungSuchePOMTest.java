@@ -3,9 +3,9 @@ package com.angelo.PruefungsAnAbmeldung;
 import com.angelo.pages.PruefungsAnAbmeldungSuchePOM;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.fail;
 
 public class PruefungsAnAbmeldungSuchePOMTest extends PruefungsAnAbmeldungPOMTest{
@@ -28,12 +28,34 @@ public class PruefungsAnAbmeldungSuchePOMTest extends PruefungsAnAbmeldungPOMTes
         }
     }
 
-
     @Test(enabled = true, dependsOnMethods = "testMoveToLinkToSearch", priority = 6)
-    public void testSearchExamByNumber() {
+    public void testKickOffSearchExamByNumber() {
         try {
-            pruefungsAnAbmeldungSuchePOM.searchExamByNumber("IN");
-            WebElement tabellePruefungsTermine = pruefungsAnAbmeldungSuchePOM.getTabellePruefungsTermine();
+            String numberToSearch = "IN";
+            pruefungsAnAbmeldungSuchePOM.searchExamByNumber(numberToSearch);
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+    @Test(enabled = true, dependsOnMethods = "testKickOffSearchExamByNumber", priority = 6)
+    public void testSearchExamByNumberResults() {
+        try {
+            String numberToSearch = "IN";
+            assertTrue(pruefungsAnAbmeldungSuchePOM.isSearchResultsCorrect(numberToSearch));
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+    @Test(enabled = true, dependsOnMethods = "testSearchExamByNumberResults", priority = 6)
+    public void testKickOffSearchExamByName() {
+        try {
+            String nameToSearch = "Innovation";
+            pruefungsAnAbmeldungSuchePOM.searchExamByName(nameToSearch);
+            assertTrue(pruefungsAnAbmeldungSuchePOM.isSearchResultsCorrect(nameToSearch));
         } catch (Exception e) {
             e.printStackTrace();
             fail();
