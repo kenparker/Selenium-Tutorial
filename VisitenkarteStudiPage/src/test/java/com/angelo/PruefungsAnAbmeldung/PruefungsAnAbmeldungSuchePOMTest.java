@@ -31,7 +31,7 @@ public class PruefungsAnAbmeldungSuchePOMTest extends PruefungsAnAbmeldungPOMTes
     @Test(enabled = true, dependsOnMethods = "testMoveToLinkToSearch", priority = 6)
     public void testKickOffSearchExamByNumber() {
         try {
-            String numberToSearch = "IN";
+            String numberToSearch = "IN8024";
             pruefungsAnAbmeldungSuchePOM.searchExamByNumber(numberToSearch);
         } catch (Exception e) {
             e.printStackTrace();
@@ -42,7 +42,7 @@ public class PruefungsAnAbmeldungSuchePOMTest extends PruefungsAnAbmeldungPOMTes
     @Test(enabled = true, dependsOnMethods = "testKickOffSearchExamByNumber", priority = 6)
     public void testSearchExamByNumberResults() {
         try {
-            String numberToSearch = "IN";
+            String numberToSearch = "IN8024";
             assertTrue(pruefungsAnAbmeldungSuchePOM.isSearchResultsCorrect(numberToSearch));
         } catch (Exception e) {
             e.printStackTrace();
@@ -50,7 +50,7 @@ public class PruefungsAnAbmeldungSuchePOMTest extends PruefungsAnAbmeldungPOMTes
         }
     }
 
-    @Test(enabled = true, dependsOnMethods = "testSearchExamByNumberResults", priority = 6)
+    @Test(enabled = true, priority = 6)
     public void testKickOffSearchExamByName() {
         try {
             String nameToSearch = "Innovation";

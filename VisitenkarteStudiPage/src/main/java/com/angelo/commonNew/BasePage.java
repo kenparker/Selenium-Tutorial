@@ -45,9 +45,8 @@ public class BasePage {
         return element != null;
     }
 
-    public Boolean isElementPresent(By by) {
-        WebElement element = getWebElementIfPresent(by);
-        return element != null;
+    public Boolean isElementPresent(WebElement element, By by) {
+        return element.findElements(by).size() > 0;
     }
 
     public Boolean isElementEnabled(WebElement element) {
