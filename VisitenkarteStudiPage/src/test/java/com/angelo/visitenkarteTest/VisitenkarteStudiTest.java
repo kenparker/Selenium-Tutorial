@@ -1,6 +1,7 @@
 package com.angelo.visitenkarteTest;
 
 import com.angelo.pages.VisitenkarteStudiPOM;
+import java.util.Objects;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -11,22 +12,16 @@ import org.testng.annotations.BeforeTest;
 public class VisitenkarteStudiTest extends TestBase {
 
     protected VisitenkarteStudiPOM visitenkarteStudi;
-    
+
     @BeforeClass
     public void beforeVisitenkarte() {
-         visitenkarteStudi = new VisitenkarteStudiPOM(loginController.getDriver());
+        visitenkarteStudi = new VisitenkarteStudiPOM(loginController.getDriver());
     }
-    
+
     @Test(enabled = true, priority = 0)
     public void testTitel() {
-
-        try {
-            String title = visitenkarteStudi.getTitle();
-            assertTrue(title.contains("Visitenkarte"));
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
+        Boolean pageTitle = visitenkarteStudi.isPageTitle();
+        assertTrue(pageTitle);
     }
 
     @Test(enabled = true, priority = 0)
@@ -53,14 +48,10 @@ public class VisitenkarteStudiTest extends TestBase {
     }
 
     @Test(enabled = true, priority = 0)
-    public void testVerifyPageIsCorrect() {
+    public void testPageVisitenkarte() {
+        boolean pageVisitenKarteisLoaded = Objects.nonNull(visitenkarteStudi.verifyPageLoaded());
+        assertTrue(pageVisitenKarteisLoaded);
 
-        try {
-            visitenkarteStudi.verifyPageLoaded();
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
     }
 
 }

@@ -13,6 +13,7 @@ public class VisitenkarteStudiPOM extends BasePage {
 
     private final String pageLoadedText = "Visitenkarte/Arbeitsplatz";
     private final String pageUrl = "/webnav.ini";
+    private final String pageTitel = "Visitenkarte";
 
     @FindBy(css = "a[href='wbExamRegistration.wbMyNawiExams']")
     @CacheLookup
@@ -50,5 +51,8 @@ public class VisitenkarteStudiPOM extends BasePage {
             }
         });
         return this;
+    }
+    public Boolean isPageTitle() {
+        return isPageTitleOK(pageTitel);
     }
 }

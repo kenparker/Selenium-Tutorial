@@ -2,7 +2,6 @@ package com.angelo.PruefungsAnAbmeldung;
 
 import com.angelo.pages.PruefungsAnAbmeldungSuchePOM;
 import com.angelo.pages.PruefungsTermineTablePOM;
-import org.openqa.selenium.WebElement;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 

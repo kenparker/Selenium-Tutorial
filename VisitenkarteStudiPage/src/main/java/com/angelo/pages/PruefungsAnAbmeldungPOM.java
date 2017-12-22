@@ -62,17 +62,5 @@ public class PruefungsAnAbmeldungPOM extends BasePage{
         });
         return this;
     }
-    /*
-
-    By tabellePruefungsTermine = By.cssSelector("#idExamOfferTable");
-    By tabellePruefungsTermineAlleZeilen = By.cssSelector("#idExamOfferTable tr");
-    By spaltePruefungsterminNummer = By.cssSelector("td:nth-child(2)");
-    By spalteAnmeldeButton = By.cssSelector("td:nth-child(11) > a");
-    
-    By overlayFenster = By.cssSelector("div.overlayWindow");
-    By selectStudium = By.cssSelector("#idStDegreeProgNr");
-    By inBaumWaehlen = By.cssSelector("#idOpenCsTree");
-    */
-
-
+  
 }

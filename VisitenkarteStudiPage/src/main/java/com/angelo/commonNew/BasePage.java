@@ -91,6 +91,11 @@ public class BasePage {
         return driver.getTitle();
     }
     
+    public Boolean isPageTitleOK(String titleToCheck) {
+        ExpectedCondition<Boolean> titleCheck = (WebDriver driver) -> driver.getTitle().contains(titleToCheck);
+        return wait.until(titleCheck);
+    }
+    
     public void listAllElements(String xPath) {
         List<WebElement> findElementsInFrame = driver.findElements(By.xpath(xPath));
         System.out.println("-->>elements in Frame size :" + findElementsInFrame.size());

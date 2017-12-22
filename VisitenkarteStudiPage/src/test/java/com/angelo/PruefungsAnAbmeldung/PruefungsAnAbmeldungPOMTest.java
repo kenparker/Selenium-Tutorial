@@ -1,12 +1,11 @@
 package com.angelo.PruefungsAnAbmeldung;
 
 import com.angelo.pages.PruefungsAnAbmeldungPOM;
-import com.angelo.pages.PruefungsAnAbmeldungSuchePOM;
 import com.angelo.visitenkarteTest.VisitenkarteStudiTest;
+import java.util.Objects;
+import org.testng.Assert;
 import static org.testng.Assert.fail;
-
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 public class PruefungsAnAbmeldungPOMTest extends VisitenkarteStudiTest{
@@ -17,7 +16,7 @@ public class PruefungsAnAbmeldungPOMTest extends VisitenkarteStudiTest{
     public void beforePruefungsAnAbmeldung() {
         pruefungsAnAbmeldung = new PruefungsAnAbmeldungPOM(loginController.getDriver());
     }
-
+    
     @Test(enabled = true, priority = 1)
     public void testClickLinkToPruefungAnAbmeldung() {
         try {
@@ -26,6 +25,12 @@ public class PruefungsAnAbmeldungPOMTest extends VisitenkarteStudiTest{
             e.printStackTrace();
             fail();
         }
+    }
+
+    @Test(enabled = true, priority = 2)
+    public void testPagePruefungsAnAbmeldung() {
+        boolean pageLoaded = Objects.nonNull(pruefungsAnAbmeldung.verifyPageLoaded());     
+        Assert.assertTrue(pageLoaded);
     }
 
     @Test(enabled = true, priority = 2)
