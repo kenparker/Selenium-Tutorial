@@ -25,6 +25,6 @@ public class TestBase {
     @AfterClass
     public void after() {
         System.out.println("after method");
-        //loginController.close();
+        loginController.close();
     }
 }
