@@ -22,7 +22,8 @@
         <module>LoadTestDemo1</module>
         <module>VisitenkarteStudiPage</module>
         <module>SampleAMaggioniPOM</module>
-    </modules>
+    <module>TestNGDataDrivenDemo1</module>
+  </modules>
     <dependencies>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
