@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="TestNgMavenExampleSuite" parallel="false">
+    <test name="TestNgMavenTest">
+        <classes>
+            <class name="testngpack.TestDemo2"/>                    
+        </classes>
+    </test>
+</suite>

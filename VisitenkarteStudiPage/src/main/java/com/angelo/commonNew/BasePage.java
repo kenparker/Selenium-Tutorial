@@ -30,7 +30,9 @@ public class BasePage {
     }
 
     public void sendKeys(WebElement webElement, String key) {
-        getWebElementIfClickable(webElement).sendKeys(key);
+        WebElement webElementIfClickable = getWebElementIfClickable(webElement);
+        webElementIfClickable.clear();
+        webElementIfClickable.sendKeys(key);
     }
 
     public WebElement getWebElementIfClickable(By by) {
@@ -43,9 +45,8 @@ public class BasePage {
         return element != null;
     }
 
-    public Boolean isElementPresent(By by) {
-        WebElement element = getWebElementIfPresent(by);
-        return element != null;
+    public Boolean isElementPresent(WebElement element, By by) {
+        return element.findElements(by).size() > 0;
     }
 
     public Boolean isElementEnabled(WebElement element) {

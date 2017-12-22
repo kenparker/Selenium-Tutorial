@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Package123" verbose="5">
+
+    <test name="Test1">
+        <parameter name="myName" value="Angelo"/>
+        <packages>
+        <package name="Package1"/>
+        <package name="Package2"/>
+        </packages>
+    </test>
+
+    <test name="Test2">
+        <parameter name="myName" value="Marco"/>
+        <packages>
+            <package name="Package1"/>
+        </packages>
+    </test>
+
+    <test name="Test3">
+        <parameter name="myName" value="Carlo"/>
+        <packages>
+            <package name="Package1"/>
+        </packages>
+    </test>
+</suite>

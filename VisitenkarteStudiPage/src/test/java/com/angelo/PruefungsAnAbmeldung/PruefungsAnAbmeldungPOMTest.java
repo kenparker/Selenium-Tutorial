@@ -5,6 +5,7 @@ import com.angelo.pages.PruefungsAnAbmeldungSuchePOM;
 import com.angelo.visitenkarteTest.VisitenkarteStudiTest;
 import static org.testng.Assert.fail;
 
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -12,7 +13,7 @@ public class PruefungsAnAbmeldungPOMTest extends VisitenkarteStudiTest{
 
     protected PruefungsAnAbmeldungPOM pruefungsAnAbmeldung;
 
-    @BeforeTest
+    @BeforeClass
     public void beforePruefungsAnAbmeldung() {
         pruefungsAnAbmeldung = new PruefungsAnAbmeldungPOM(loginController.getDriver());
     }

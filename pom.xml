@@ -12,7 +12,6 @@
         <module>HowToRunTestWithChrome</module>
         <module>Frames</module>
         <module>Exercises</module>
-        <module>TestNGBasics</module>
         <module>TestNgBasicDemo1</module>
         <module>testNgMavenExample</module>
         <module>TestNgBasicDemo2</module>
@@ -22,7 +21,9 @@
         <module>LoadTestDemo1</module>
         <module>VisitenkarteStudiPage</module>
         <module>SampleAMaggioniPOM</module>
-    <module>TestNGDataDrivenDemo1</module>
+        <module>TestNgBasicWithTestngxml</module>
+        <module>TestNGPlayingWithTestngFiles</module>
+    <module>TestNGOverflowDemo1</module>
   </modules>
     <dependencies>
         <dependency>
