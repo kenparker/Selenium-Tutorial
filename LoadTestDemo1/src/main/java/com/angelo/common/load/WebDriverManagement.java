@@ -23,7 +23,7 @@ public class WebDriverManagement {
         }
         driver.get(wdac.getLocation());
         //Dimension d = new Dimension(1024,786);
-        //driver.manage().window().setSize(d);
+        driver.manage().window().maximize();
     }
 
     public WebDriver getWebDriver() {
