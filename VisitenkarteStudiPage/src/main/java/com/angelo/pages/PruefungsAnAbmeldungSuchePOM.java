@@ -1,10 +1,6 @@
 package com.angelo.pages;
 
 import com.angelo.commonNew.BasePage;
-
-import java.util.List;
-
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
@@ -16,7 +12,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class PruefungsAnAbmeldungSuchePOM extends BasePage {
 
     private final String pageLoadedText = "Prüfungssuche";
-    private final String pageUrl = "...";
 
     @FindBy(css = "#idExamSearchMainMask #idExamSearchTerm")
     @CacheLookup
@@ -39,9 +34,8 @@ public class PruefungsAnAbmeldungSuchePOM extends BasePage {
         return true;
     }
 
-    private PruefungsAnAbmeldungSuchePOM setSearchField(String examSearch) {
+    private void setSearchField(String examSearch) {
         sendKeys(searchField, examSearch);
-        return this;
     }
 
     public boolean isExamSearchButtonClickable() {
@@ -65,13 +59,8 @@ public class PruefungsAnAbmeldungSuchePOM extends BasePage {
         return submitSearch();
     }
 
-    public PruefungsAnAbmeldungSuchePOM verifyPageLoaded() {
-        (new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
-            public Boolean apply(WebDriver d) {
-                return d.getPageSource().contains(pageLoadedText);
-            }
-        });
-        return this;
+    public void verifyPageLoaded() {
+        (new WebDriverWait(driver, 10)).until((ExpectedCondition<Boolean>) d -> d.getPageSource().contains(pageLoadedText));
     }
 
 }

@@ -22,34 +22,19 @@ public class PruefungsAnAbmeldungSuchePOMTest extends PruefungsAnAbmeldungPOMTes
 
     @Test(enabled = true, priority = 5)
     public void testMoveToLinkToSearch() {
-        try {
-            pruefungsAnAbmeldungSuchePOM = pruefungsAnAbmeldung.moveToIdTabSearch();
-            pruefungsAnAbmeldungSuchePOM.verifyPageLoaded();
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
+        pruefungsAnAbmeldungSuchePOM = pruefungsAnAbmeldung.moveToIdTabSearch();
+        pruefungsAnAbmeldungSuchePOM.verifyPageLoaded();
     }
 
     @Test(enabled = true, dependsOnMethods = "testMoveToLinkToSearch", priority = 6)
     public void testKickOffSearchExamByNumber() {
-        try {
-            numberToSearch = "IN8024";
-            pruefungsTermineTablePOM = pruefungsAnAbmeldungSuchePOM.searchExamByNumber(numberToSearch);
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
+        numberToSearch = "IN8024";
+        pruefungsTermineTablePOM = pruefungsAnAbmeldungSuchePOM.searchExamByNumber(numberToSearch);
     }
 
     @Test(enabled = true, dependsOnMethods = "testKickOffSearchExamByNumber", priority = 6)
     public void testSearchExamByNumberResults() {
-        try {
-            assertTrue(pruefungsTermineTablePOM.isSearchResultsCorrect(numberToSearch));
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
+        assertTrue(pruefungsTermineTablePOM.isSearchResultsCorrect(numberToSearch));
     }
 
     @Test(enabled = true, dependsOnMethods = "testSearchExamByNumberResults", priority = 6)
