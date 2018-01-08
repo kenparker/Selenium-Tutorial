@@ -30,28 +30,18 @@ public class VisitenkarteStudiPOM extends BasePage {
         return true;
     }
     
-    public VisitenkarteStudiPOM clicklinkToPruefungAnAbmeldung() {
+    public void clicklinkToPruefungAnAbmeldung() {
         click(linkToPruefungAnAbmeldung);
-        return this;
     }
 
-    public VisitenkarteStudiPOM verifyPageLoaded() {
-        (new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
-            public Boolean apply(WebDriver d) {
-                return d.getPageSource().contains(pageLoadedText);
-            }
-        });
-        return this;
+    public void verifyPageLoaded() {
+        new WebDriverWait(driver, 10).until((ExpectedCondition<Boolean>) d -> d.getPageSource().contains(pageLoadedText));
     }
 
-    public VisitenkarteStudiPOM verifyPageUrl() {
-        (new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
-            public Boolean apply(WebDriver d) {
-                return d.getCurrentUrl().contains(pageUrl);
-            }
-        });
-        return this;
+    public void verifyPageUrl() {
+        (new WebDriverWait(driver, 10)).until((ExpectedCondition<Boolean>) d -> d.getCurrentUrl().contains(pageUrl));
     }
+
     public Boolean isPageTitle() {
         return isPageTitleOK(pageTitel);
     }

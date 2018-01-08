@@ -38,29 +38,21 @@ public class PruefungsAnAbmeldungPOM extends BasePage{
         return true;
     }
 
-    public PruefungsAnAbmeldungPOM clickIdTabSearch() {
+    public void clickIdTabSearch() {
         click(idTabSearch);
-        return this;
     }
 
-    public PruefungsAnAbmeldungPOM clickmeinePruefungsTermine() {
+    public void clickmeinePruefungsTermine() {
         click(meinePruefungsTermine);
-        return this;
     }
 
     public PruefungsAnAbmeldungSuchePOM moveToIdTabSearch() {
         click(idTabSearch);
-        PruefungsAnAbmeldungSuchePOM pruefungsAnAbmeldungSuchePOM = new PruefungsAnAbmeldungSuchePOM(this.driver);
-        return pruefungsAnAbmeldungSuchePOM;
+        return new PruefungsAnAbmeldungSuchePOM(this.driver);
     }
 
-    public PruefungsAnAbmeldungPOM verifyPageLoaded() {
-        (new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
-            public Boolean apply(WebDriver d) {
-                return d.getPageSource().contains(pageLoadedText);
-            }
-        });
-        return this;
+    public void verifyPageLoaded() {
+        (new WebDriverWait(driver, 10)).until((ExpectedCondition<Boolean>) d -> d.getPageSource().contains(pageLoadedText));
     }
   
 }

@@ -26,32 +26,18 @@ public class VisitenkarteStudiTest extends TestBase {
 
     @Test(enabled = true, priority = 0)
     public void testLinkToPruefungsAnAbmeldungIsClickable() {
-
-        try {
             boolean linkToPruefungAnAbmeldungClickable = visitenkarteStudi.islinkToPruefungAnAbmeldungClickable();
             assertTrue(linkToPruefungAnAbmeldungClickable);
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
     }
 
     @Test(enabled = true, priority = 0)
     public void testVerifyUrl() {
-
-        try {
             visitenkarteStudi.verifyPageUrl();
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
     }
 
     @Test(enabled = true, priority = 0)
     public void testPageVisitenkarte() {
-        boolean pageVisitenKarteisLoaded = Objects.nonNull(visitenkarteStudi.verifyPageLoaded());
-        assertTrue(pageVisitenKarteisLoaded);
-
+        visitenkarteStudi.verifyPageLoaded();
     }
 
 }
