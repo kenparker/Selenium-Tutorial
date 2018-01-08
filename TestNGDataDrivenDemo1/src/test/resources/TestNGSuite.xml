@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Multiple-Browser">
+
+    <!--
+    see examples at http://testng.org/doc/documentation-main.html#testng-xml
+    <suite-files>
+        <suite-file path="./junit-suite.xml" />
+    </suite-files>
+
+    -->
+    
+    <tests>
+        <test name="Windows+IE10 Test">
+            <parameters>
+                <parameter name="platform" value="Windows" />
+                <parameter name="browser" value="Internet Explorer" />
+                <parameter name="version" value="10" />
+                <parameter name="url" value="http://bit.ly/1zdNrFZ" />
+            </parameters>
+            <classes>
+                <class name="testng.BaseTest" />
+            </classes>
+        </test>
+        <test name="Windows+Firefox Test">
+            <parameters>
+                <parameter name="platform" value="Mac" />
+                <parameter name="browser" value="Firefox" />
+                <parameter name="version" value="38.0.5" />
+                <parameter name="url" value="http://bit.ly/1zdNrFZ" />
+            </parameters>
+            <classes>
+                <class name="testng.BaseTest" />
+            </classes>
+        </test>
+        <test name="Mac+Safari Test">
+            <parameters>
+                <parameter name="platform" value="Mac" />
+                <parameter name="browser" value="Safari" />
+                <parameter name="version" value="8.0.2" />
+                <parameter name="url" value="http://bit.ly/1zdNrFZ" />
+            </parameters>
+            <classes>
+                <class name="testng.BaseTest" />
+            </classes>
+        </test>
+    </tests>
+
+</suite>
