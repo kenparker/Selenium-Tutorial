@@ -15,7 +15,7 @@ import org.testng.annotations.Test;
 
 public class PruefungsAnAbmeldungPOMTest extends VisitenkarteStudiTest {
 
-    protected PruefungsAnAbmeldungPOM pruefungsAnAbmeldung;
+    public PruefungsAnAbmeldungPOM pruefungsAnAbmeldung;
 
     @BeforeClass
     public void beforePruefungsAnAbmeldung() {
