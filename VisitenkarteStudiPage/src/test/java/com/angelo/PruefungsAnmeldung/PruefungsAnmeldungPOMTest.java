@@ -1,14 +1,13 @@
 package com.angelo.PruefungsAnmeldung;
 
 import com.angelo.PruefungsAnAbmeldung.PruefungsAnAbmeldungPOMTest;
+import com.angelo.PruefungsAnAbmeldungSuche.PruefungsAnAbmeldungSuchePOMTest;
 import com.angelo.pages.PruefungsAnAbmeldungSuchePOM;
 import org.testng.annotations.Test;
 
-public class PruefungsAnmeldungPOMTest extends PruefungsAnAbmeldungPOMTest {
+public class PruefungsAnmeldungPOMTest extends PruefungsAnAbmeldungSuchePOMTest {
 
-    protected PruefungsAnAbmeldungSuchePOM pruefungsAnAbmeldungSuchePOM;
-
-    @Test(enabled = true, priority = 5)
+    @Test(enabled = true, priority = 6)
     public void testPruefungsAnmeldungDurchfuehrung() {
 
     }
