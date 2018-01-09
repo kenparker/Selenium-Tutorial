@@ -15,11 +15,6 @@ public class PruefungsAnAbmeldungSuchePOMTest extends PruefungsAnAbmeldungPOMTes
     private String numberToSearch;
     private String nameToSearch;
 
-    @BeforeClass
-    public void beforePruefungsSuche() {
-
-    }
-
     @Test(enabled = true, priority = 5)
     public void testMoveToLinkToSearch() {
         pruefungsAnAbmeldungSuchePOM = pruefungsAnAbmeldung.moveToIdTabSearch();

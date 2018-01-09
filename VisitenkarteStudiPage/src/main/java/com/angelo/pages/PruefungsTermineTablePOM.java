@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 public class PruefungsTermineTablePOM extends BasePage {
 
@@ -38,25 +40,64 @@ public class PruefungsTermineTablePOM extends BasePage {
         }
     }
 
+    public Optional<PruefungsAnmeldungPOM> pruefungsAnmeldungDurchfuehren(String pruefungsTermin) throws NoElementsInTabellePruefungsTermineException {
+        Optional<WebElement> pruefungsTerminElementOptional = searchPruefungsTermin(getTabellePruefungsTermine(), pruefungsTermin.toLowerCase());
+        if (pruefungsTerminElementOptional.isPresent()) {
+            WebElement pruefungsTerminElement = pruefungsTerminElementOptional.get();
+            click(pruefungsTerminElement);
+            return Optional.of(new PruefungsAnmeldungPOM(this.driver));
+        }
+        return Optional.empty();
+    }
+
+    private Optional<WebElement> searchPruefungsTermin(WebElement table, String pruefungsTermin) throws NoElementsInTabellePruefungsTermineException {
+        List<WebElement> getAllRows = getWebElements(table);
+        return getAllRows.stream().filter(row -> isAnmeldenButtonForPruefungsTerminActive(row, pruefungsTermin)).findFirst();
+
+       /*
+        for (WebElement row : getAllRows) {
+            Optional<WebElement> pruefungsTerminElement = searchPruefungsTerminInRow(row, pruefungsTermin);
+            if (pruefungsTerminElement.isPresent()) return pruefungsTerminElement;
+        }
+        return Optional.empty();
+        */
+    }
+
     private void checkTabellePruefungsTermine(WebElement table, String search) throws SearchNotCorrect, NoElementsInTabellePruefungsTermineException {
+        List<WebElement> getAllRows = getWebElements(table);
+        for (WebElement row : getAllRows) checkTableRow(row, search);
+    }
+
+    private Optional<WebElement> searchPruefungsTerminInRow(WebElement row, String pruefungsTermin) {
+        return isAnmeldenButtonForPruefungsTerminActive(row, pruefungsTermin) ? Optional.of(row) : Optional.empty();
+    }
+
+    private boolean isAnmeldenButtonForPruefungsTerminActive(WebElement row, String pruefungsTermin) {
+        String terminNumber = row.findElement(tabellePruefungsTermineSpalteNummer).getText();
+        return terminNumber.toLowerCase().contains(pruefungsTermin) &&
+                isElementPresent(row, tabellePruefungsTermineAnmeldenButton) &&
+                !isElementPresent(row, buttonDisabled);
+    }
+
+    private List<WebElement> getWebElements(WebElement table) throws NoElementsInTabellePruefungsTermineException {
         List<WebElement> getAllRows = table.findElements(tabellePruefungsTermineZeile);
         System.out.println("total elements : " + getAllRows.size());
         if (getAllRows.size() == 0)
             throw new NoElementsInTabellePruefungsTermineException("no elements in the result table");
-        for (WebElement row : getAllRows) checkTableRow(row, search);
+        return getAllRows;
     }
 
-    private void checkTableRow(WebElement element, String search) throws SearchNotCorrect {
+    private void checkTableRow(WebElement row, String search) throws SearchNotCorrect {
 
-        String terminNumber = element.findElement(tabellePruefungsTermineSpalteNummer).getText();
-        String terminTitel = element.findElement(tabellePruefungsTermineSpalteTitel).getText();
+        String terminNumber = row.findElement(tabellePruefungsTermineSpalteNummer).getText();
+        String terminTitel = row.findElement(tabellePruefungsTermineSpalteTitel).getText();
 
-        Boolean isButtonAnmelden = isElementPresent(element, tabellePruefungsTermineAnmeldenButton);
-        Boolean isButtonAbmelden = !isButtonAnmelden & isElementPresent(element, tabellePruefungsTermineAbmeldenButton);
-        Boolean isButtonDisabled = isElementPresent(element, buttonDisabled);
-        Boolean isButtonEnabled = !isButtonDisabled & isElementPresent(element, buttonEnabled);
+        Boolean isButtonAnmelden = isElementPresent(row, tabellePruefungsTermineAnmeldenButton);
+        Boolean isButtonAbmelden = !isButtonAnmelden & isElementPresent(row, tabellePruefungsTermineAbmeldenButton);
+        Boolean isButtonDisabled = isElementPresent(row, buttonDisabled);
+        Boolean isButtonEnabled = !isButtonDisabled & isElementPresent(row, buttonEnabled);
 
-        String buttonTitle = element.findElement(tabellePruefungsTermineSpalteButton).getAttribute("title");
+        String buttonTitle = row.findElement(tabellePruefungsTermineSpalteButton).getAttribute("title");
         String format = String.format("\n termin >%-10s< AnmeldeButton >%b< AbmeldenButton >%s< Disabled? >%b< >%b<", terminNumber, isButtonAnmelden, isButtonAbmelden, isButtonDisabled, isButtonEnabled);
         System.out.println(format);
         if (isTerminNumerOrTitleCorrect(search, terminNumber, terminTitel)) {
@@ -68,6 +109,7 @@ public class PruefungsTermineTablePOM extends BasePage {
     private boolean isTerminNumerOrTitleCorrect(String search, String terminNumber, String terminTitel) {
         return terminNumber.toLowerCase().contains(search) || terminTitel.toLowerCase().contains(search);
     }
+
 }
 
 class SearchNotCorrect extends Exception {
