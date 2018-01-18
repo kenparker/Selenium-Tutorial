@@ -11,8 +11,6 @@ import java.util.stream.Stream;
 
 public class PruefungsTermineTablePOM extends BasePage {
 
-    //private WebElement pruefungsTermineTable;
-
     private By tabellePruefungsTermine = By.cssSelector("#idExamOfferTable");
     private By tabellePruefungsTermineZeile = By.cssSelector("#idExamOfferTable [class*='coTableR']");
     private By tabellePruefungsTermineSpalteNummer = By.cssSelector("td:nth-child(2)");
@@ -40,36 +38,23 @@ public class PruefungsTermineTablePOM extends BasePage {
         }
     }
 
-    public Optional<PruefungsAnmeldungPOM> pruefungsAnmeldungDurchfuehren(String pruefungsTermin) throws NoElementsInTabellePruefungsTermineException {
-        Optional<WebElement> pruefungsTerminElementOptional = searchPruefungsTermin(getTabellePruefungsTermine(), pruefungsTermin.toLowerCase());
-        if (pruefungsTerminElementOptional.isPresent()) {
-            WebElement pruefungsTerminElement = pruefungsTerminElementOptional.get();
-            click(pruefungsTerminElement);
-            return Optional.of(new PruefungsAnmeldungPOM(this.driver));
+    public Optional<PruefungsAnmeldungPOM> pruefungsAnmeldungDurchfuehren(String pruefungsTermin) {
+        Optional<WebElement> rowWithPruefungsTermin = Optional.empty();
+        try {
+            rowWithPruefungsTermin = searchPruefungsTermin(getTabellePruefungsTermine(), pruefungsTermin.toLowerCase());
+            if (rowWithPruefungsTermin.isPresent()) {
+                WebElement anmeldeButton = rowWithPruefungsTermin.get().findElement(tabellePruefungsTermineAnmeldenButton);
+                click(anmeldeButton);
+                return Optional.of(new PruefungsAnmeldungPOM(this.driver));
+            } else return Optional.empty();
+        } catch (NoElementsInTabellePruefungsTermineException e) {
+            return Optional.empty();
         }
-        return Optional.empty();
     }
 
     private Optional<WebElement> searchPruefungsTermin(WebElement table, String pruefungsTermin) throws NoElementsInTabellePruefungsTermineException {
         List<WebElement> getAllRows = getWebElements(table);
         return getAllRows.stream().filter(row -> isAnmeldenButtonForPruefungsTerminActive(row, pruefungsTermin)).findFirst();
-
-       /*
-        for (WebElement row : getAllRows) {
-            Optional<WebElement> pruefungsTerminElement = searchPruefungsTerminInRow(row, pruefungsTermin);
-            if (pruefungsTerminElement.isPresent()) return pruefungsTerminElement;
-        }
-        return Optional.empty();
-        */
-    }
-
-    private void checkTabellePruefungsTermine(WebElement table, String search) throws SearchNotCorrect, NoElementsInTabellePruefungsTermineException {
-        List<WebElement> getAllRows = getWebElements(table);
-        for (WebElement row : getAllRows) checkTableRow(row, search);
-    }
-
-    private Optional<WebElement> searchPruefungsTerminInRow(WebElement row, String pruefungsTermin) {
-        return isAnmeldenButtonForPruefungsTerminActive(row, pruefungsTermin) ? Optional.of(row) : Optional.empty();
     }
 
     private boolean isAnmeldenButtonForPruefungsTerminActive(WebElement row, String pruefungsTermin) {
@@ -79,12 +64,11 @@ public class PruefungsTermineTablePOM extends BasePage {
                 !isElementPresent(row, buttonDisabled);
     }
 
-    private List<WebElement> getWebElements(WebElement table) throws NoElementsInTabellePruefungsTermineException {
-        List<WebElement> getAllRows = table.findElements(tabellePruefungsTermineZeile);
-        System.out.println("total elements : " + getAllRows.size());
-        if (getAllRows.size() == 0)
-            throw new NoElementsInTabellePruefungsTermineException("no elements in the result table");
-        return getAllRows;
+
+
+    private void checkTabellePruefungsTermine(WebElement table, String search) throws SearchNotCorrect, NoElementsInTabellePruefungsTermineException {
+        List<WebElement> getAllRows = getWebElements(table);
+        for (WebElement row : getAllRows) checkTableRow(row, search);
     }
 
     private void checkTableRow(WebElement row, String search) throws SearchNotCorrect {
@@ -104,6 +88,14 @@ public class PruefungsTermineTablePOM extends BasePage {
         } else {
             throw new SearchNotCorrect(format);
         }
+    }
+
+    private List<WebElement> getWebElements(WebElement table) throws NoElementsInTabellePruefungsTermineException {
+        List<WebElement> getAllRows = table.findElements(tabellePruefungsTermineZeile);
+        System.out.println("total elements : " + getAllRows.size());
+        if (getAllRows.size() == 0)
+            throw new NoElementsInTabellePruefungsTermineException("no elements in the result table");
+        return getAllRows;
     }
 
     private boolean isTerminNumerOrTitleCorrect(String search, String terminNumber, String terminTitel) {

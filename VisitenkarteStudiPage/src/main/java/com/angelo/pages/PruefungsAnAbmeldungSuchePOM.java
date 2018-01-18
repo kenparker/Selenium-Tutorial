@@ -9,6 +9,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.Optional;
+
 public class PruefungsAnAbmeldungSuchePOM extends BasePage {
 
     private final String pageLoadedText = "Prüfungssuche";
@@ -20,8 +22,6 @@ public class PruefungsAnAbmeldungSuchePOM extends BasePage {
     @FindBy(css = "#idExamSearchButton")
     @CacheLookup
     private WebElement examSearchButton;
-
-    private PruefungsTermineTablePOM pruefungsTermineTablePOM;
 
     public PruefungsAnAbmeldungSuchePOM(WebDriver driver) {
         super(driver);
@@ -46,7 +46,7 @@ public class PruefungsAnAbmeldungSuchePOM extends BasePage {
     private PruefungsTermineTablePOM submitSearch() {
         click(examSearchButton);
         isElementEnabled(examSearchButton);
-        return pruefungsTermineTablePOM = new PruefungsTermineTablePOM(this.driver);
+        return new PruefungsTermineTablePOM(this.driver);
     }
 
     public PruefungsTermineTablePOM searchExamByNumber(String examNumber) {
@@ -57,6 +57,11 @@ public class PruefungsAnAbmeldungSuchePOM extends BasePage {
     public PruefungsTermineTablePOM searchExamByName(String examName) {
         setSearchField(examName);
         return submitSearch();
+    }
+
+    public Optional<PruefungsAnmeldungPOM> pruefungsAnmeldungdurchfuehren(String examNumber)  {
+        PruefungsTermineTablePOM pruefungsTermineTablePOM = searchExamByName(examNumber);
+        return pruefungsTermineTablePOM.pruefungsAnmeldungDurchfuehren(examNumber);
     }
 
     public void verifyPageLoaded() {
