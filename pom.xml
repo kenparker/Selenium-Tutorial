@@ -24,7 +24,7 @@
         <module>TestNgBasicWithTestngxml</module>
         <module>TestNGPlayingWithTestngFiles</module>
     <module>TestNGOverflowDemo1</module>
-  </modules>
+    </modules>
     <dependencies>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
