@@ -36,7 +36,7 @@ public class BasePage {
     }
 
     public WebElement getWebElementIfClickable(By by) {
-        jsWaiter.waitUntilJSReady();
+        waiter();
         return wait.until(ExpectedConditions.elementToBeClickable(by));
     }
 
@@ -71,7 +71,7 @@ public class BasePage {
         waiter();
         return wait.until(ExpectedConditions.presenceOfElementLocated(by));
     }
-
+    
     public WebElement getWebElementIfClickable(WebElement webElement) {
         waiter();
         return wait.until(ExpectedConditions.elementToBeClickable(webElement));
