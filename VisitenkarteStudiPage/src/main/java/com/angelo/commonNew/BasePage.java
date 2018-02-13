@@ -3,6 +3,7 @@ package com.angelo.commonNew;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -27,6 +28,10 @@ public class BasePage {
 
     public void click(WebElement webElement) {
         getWebElementIfClickable(webElement).click();
+    }
+
+    public WebElement findElement(WebElement parent, By elementToFind) {
+        return parent.findElement(elementToFind);
     }
 
     public void sendKeys(WebElement webElement, String key) {
@@ -54,10 +59,15 @@ public class BasePage {
     }
 
     public Boolean isElementDisabled(WebElement element) {
-        return wait.until(new WebElementIsDisabled(element));
+        try {
+            wait.until(new WebElementIsDisabled(element));
+            return true;
+        } catch (TimeoutException ex) {
+            return false;
+        }
     }
 
-    public Boolean isElementNowDisabled(WebElement element) {
+    private Boolean isElementNowDisabled(WebElement element) {
         String disabled = element.getAttribute("disabled");
         return disabled != null && disabled.equals("true");
     }
@@ -71,7 +81,7 @@ public class BasePage {
         waiter();
         return wait.until(ExpectedConditions.presenceOfElementLocated(by));
     }
-    
+
     public WebElement getWebElementIfClickable(WebElement webElement) {
         waiter();
         return wait.until(ExpectedConditions.elementToBeClickable(webElement));
@@ -79,9 +89,9 @@ public class BasePage {
 
     public Boolean isSpinnerReady() {
         ExpectedCondition<Boolean> spinner = (WebDriver driver) -> !driver.getPageSource().contains("loading_24x24.gif");
-        return wait.until(spinner);     
+        return wait.until(spinner);
     }
-    
+
     private void waiter() {
         jsWaiter.waitUntilJSReady();
         jsWaiter.waitUntilJQueryReady();
@@ -90,12 +100,12 @@ public class BasePage {
     public String getTitle() {
         return driver.getTitle();
     }
-    
+
     public Boolean isPageTitleOK(String titleToCheck) {
         ExpectedCondition<Boolean> titleCheck = (WebDriver driver) -> driver.getTitle().contains(titleToCheck);
         return wait.until(titleCheck);
     }
-    
+
     public void listAllElements(String xPath) {
         List<WebElement> findElementsInFrame = driver.findElements(By.xpath(xPath));
         System.out.println("-->>elements in Frame size :" + findElementsInFrame.size());

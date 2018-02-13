@@ -11,63 +11,67 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.Optional;
+
 public class PruefungsAnmeldungPOM extends BasePage {
 
     private final String pageLoadedText = "Prüfungsanmeldung";
-    
-    @FindBy(css = "#idRegisterToExamMask > div > div > table > tbody")
-    @CacheLookup
-    private WebElement pruefungsAnmeldungMaske;
-    
+
+    private By pruefungsAnmeldungMaske = By.cssSelector("#idRegisterToExamMask > div > div > table > tbody");
+    private WebElement pruefungsAnmeldungMaskeElement;
+
     private By pruefungsbezogeneDaten = By.xpath("//*[@id='idRegisterToExamMask']/div/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[1]/td/div/table/tbody/tr/td[1]/div/table/tbody/tr/td/fieldset/table");
+    private WebElement pruefungsbezogeneDatenElement;
 
     private By pruefungsNummer = By.xpath("tbody/tr/td[1]/div/table/tbody/tr[1]/td[2]");
+    private WebElement pruefungsNummerElement;
 
     private By stellungImStudienplan = By.cssSelector("#idCsNodeNrContainer > table > tbody > tr > td > span");
-   
+    private WebElement stellungImStudienplanElement;
+
     private By anmeldenButton = By.cssSelector("[class*=examOffer_icButton]");
- 
+    private WebElement anmeldenButtonElement;
+
     private By abbrechenSchliessenButton = By.cssSelector("[class*='mkClose commandButton']");
-    
+    private WebElement abbrechenSchliessenButtonElement;
+
     public PruefungsAnmeldungPOM(WebDriver driver) {
         super(driver);
         this.driver = driver;
-        PageFactory.initElements(this.driver, this);
+       }
+
+    public Optional<WebElement> getPruefungsAnmeldungMaske() {
+        pruefungsAnmeldungMaskeElement = getWebElementIfClickable(pruefungsAnmeldungMaske);
+        return Optional.of(pruefungsAnmeldungMaskeElement);
     }
 
-    public boolean ispruefungsAnmeldungMaskePresent() {
-        getWebElementIfClickable(pruefungsAnmeldungMaske);
-        return true;
-    }
-   
-    public boolean isStellungImStudienplanPresentAlt() {
-        WebElement webElementIfClickable = getWebElementIfClickable(stellungImStudienplan);
-        String text = webElementIfClickable.getText();
-        return true;
-    }
-    
-     
-    public boolean isStellungImStudienplanPresent() {
+    public void initAllWebElements() {
+
+        pruefungsbezogeneDatenElement = findElement(pruefungsAnmeldungMaskeElement, pruefungsbezogeneDaten);
+        pruefungsNummerElement = findElement(pruefungsbezogeneDatenElement,pruefungsNummer);
+        stellungImStudienplanElement = findElement(pruefungsAnmeldungMaskeElement, stellungImStudienplan);
+        anmeldenButtonElement = findElement(pruefungsAnmeldungMaskeElement, anmeldenButton);
+        abbrechenSchliessenButtonElement = findElement(pruefungsAnmeldungMaskeElement, abbrechenSchliessenButton);
         /*
-        replace with getWebElementIfClickable
-        or implement generic findElement with two parameters
-        */
-        final WebElement pruefungsAnmeldungMaskeElement = getWebElementIfClickable(pruefungsAnmeldungMaske);
-        WebElement pruefungsbezogeneDatenElement = pruefungsAnmeldungMaskeElement.findElement(pruefungsbezogeneDaten);
-        WebElement pruefungsNummerElement = pruefungsbezogeneDatenElement.findElement(pruefungsNummer);
         String text1 = pruefungsNummerElement.getText();
-        
-        WebElement stellungImStudienplanElement = pruefungsAnmeldungMaskeElement.findElement(stellungImStudienplan);
         String text2 = stellungImStudienplanElement.getText();
-        
-        WebElement anmeldenButtonElement = pruefungsAnmeldungMaskeElement.findElement(anmeldenButton);
         String text3 = anmeldenButtonElement.getText();
-        
-        WebElement abbrechenElement = pruefungsAnmeldungMaskeElement.findElement(abbrechenSchliessenButton);
-        String text4 = abbrechenElement.getText();
-        return true;
+        String text4 = abbrechenSchliessenButtonElement.getText();
+        */
     }
-     
+
+    public boolean isAnmeldeButtonDisabled() {
+        return isElementDisabled(anmeldenButtonElement);
+    }
+
+    public boolean isAbbrechenButtonDisabled() {
+        return isElementDisabled(abbrechenSchliessenButtonElement);
+    }
+
+    public boolean isAbbrechenButtonEnabled() {
+        return isElementEnabled(abbrechenSchliessenButtonElement);
+    }
+
     public void verifyPageLoaded() {
         (new WebDriverWait(driver, 10)).until((ExpectedCondition<Boolean>) d -> d.getPageSource().contains(pageLoadedText));
     }
