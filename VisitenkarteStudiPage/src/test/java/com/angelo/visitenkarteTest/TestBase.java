@@ -1,6 +1,6 @@
 package com.angelo.visitenkarteTest;
 
-import com.angelo.loadtestdemo1.LoginController;
+import com.angelo.login.LoginController;
 import org.testng.annotations.*;
 
 import static org.testng.Assert.fail;
