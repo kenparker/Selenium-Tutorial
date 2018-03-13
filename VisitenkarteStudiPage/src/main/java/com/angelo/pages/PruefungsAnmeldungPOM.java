@@ -29,6 +29,9 @@ public class PruefungsAnmeldungPOM extends BasePage {
     private By stellungImStudienplan = By.cssSelector("#idCsNodeNrContainer > table > tbody > tr > td > span");
     private WebElement stellungImStudienplanElement;
 
+    private By imBaumWaehlen = By.cssSelector("#idOpenCsTree");
+    private WebElement imBaumWaehlenElement;
+
     private By anmeldenButton = By.cssSelector("[class*=examOffer_icButton]");
     private WebElement anmeldenButtonElement;
 
@@ -38,7 +41,7 @@ public class PruefungsAnmeldungPOM extends BasePage {
     public PruefungsAnmeldungPOM(WebDriver driver) {
         super(driver);
         this.driver = driver;
-       }
+    }
 
     public Optional<WebElement> getPruefungsAnmeldungMaske() {
         pruefungsAnmeldungMaskeElement = getWebElementIfClickable(pruefungsAnmeldungMaske);
@@ -48,8 +51,9 @@ public class PruefungsAnmeldungPOM extends BasePage {
     public void initAllWebElements() {
 
         pruefungsbezogeneDatenElement = findElement(pruefungsAnmeldungMaskeElement, pruefungsbezogeneDaten);
-        pruefungsNummerElement = findElement(pruefungsbezogeneDatenElement,pruefungsNummer);
+        pruefungsNummerElement = findElement(pruefungsbezogeneDatenElement, pruefungsNummer);
         stellungImStudienplanElement = findElement(pruefungsAnmeldungMaskeElement, stellungImStudienplan);
+        imBaumWaehlenElement = findElement(pruefungsAnmeldungMaskeElement, imBaumWaehlen);
         anmeldenButtonElement = findElement(pruefungsAnmeldungMaskeElement, anmeldenButton);
         abbrechenSchliessenButtonElement = findElement(pruefungsAnmeldungMaskeElement, abbrechenSchliessenButton);
         /*
@@ -70,6 +74,24 @@ public class PruefungsAnmeldungPOM extends BasePage {
 
     public boolean isAbbrechenButtonEnabled() {
         return isElementEnabled(abbrechenSchliessenButtonElement);
+    }
+
+    public boolean isStellungImStudienplanEnabled() {
+        return isElementEnabled(stellungImStudienplanElement);
+    }
+
+    public boolean isStellungImStudienplanBitteWaehlen() {
+        return (isStellungImStudienplanEnabled() && stellungImStudienplanElement.getText().equalsIgnoreCase("Bitte wählen"));
+    }
+
+    public boolean isImBaumWaehlenEnabled() {
+        return isElementEnabled(imBaumWaehlenElement);
+    }
+
+    public void stellungImStudienplanAuswaelen() {
+        if (isImBaumWaehlenEnabled()) {
+            click(imBaumWaehlenElement);
+        }
     }
 
     public void verifyPageLoaded() {

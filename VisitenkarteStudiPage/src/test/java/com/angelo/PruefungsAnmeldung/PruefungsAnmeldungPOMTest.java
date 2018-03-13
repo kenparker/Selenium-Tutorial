@@ -10,44 +10,10 @@ import static org.testng.Assert.assertTrue;
 
 import java.util.Optional;
 
-public class PruefungsAnmeldungPOMTest extends PruefungsAnAbmeldungSuchePOMTest {
+public class PruefungsAnmeldungPOMTest extends PruefungsAnmeldungBasicPOMTest {
 
-    private Optional<PruefungsAnmeldungPOM> pruefungsAnmeldungPOM;
-
-    @Test(enabled = true, priority = 6)
-    public void testPruefungsAnmeldungDurchfuehrung() {
-        pruefungsAnmeldungPOM = pruefungsAnAbmeldungSuchePOM.pruefungsAnmeldungdurchfuehren("WZ1922");
-        assertTrue(pruefungsAnmeldungPOM.isPresent());
-    }
-
-    @Test(enabled = true, priority = 6, dependsOnMethods = "testPruefungsAnmeldungDurchfuehrung")
-    public void testPruefungsAnmeldungMaskeIstRichtig() {
-        pruefungsAnmeldungPOM.get().verifyPageLoaded();
-    }
-
-    @Test(enabled = true, priority = 6, dependsOnMethods = "testPruefungsAnmeldungMaskeIstRichtig")
-    public void testGetpruefungsAnmeldungMaskeIfPresent() {
-        Optional<WebElement> pruefungsAnmeldungMaske = pruefungsAnmeldungPOM.get().getPruefungsAnmeldungMaske();
-        assertTrue(pruefungsAnmeldungMaske.isPresent());
-    }
-
-    @Test(enabled = true, priority = 6, dependsOnMethods = "testGetpruefungsAnmeldungMaskeIfPresent")
-    public void testInitAllElements() {
-        pruefungsAnmeldungPOM.get().initAllWebElements();
-    }
-
-    @Test(enabled = true, priority = 6, dependsOnMethods = "testInitAllElements")
-    public void testIsAnmeldeButtonDisabled() {
-        assertTrue(pruefungsAnmeldungPOM.get().isAnmeldeButtonDisabled());
-    }
-
-    @Test(enabled = true, priority = 6, dependsOnMethods = "testInitAllElements")
-    public void testIsAbbrechenButtonDisabled() {
-        assertFalse(pruefungsAnmeldungPOM.get().isAbbrechenButtonDisabled());
-    }
-
-    @Test(enabled = true, priority = 6, dependsOnMethods = "testInitAllElements")
-    public void testIsAbbrechenButtonEnabled() {
-        assertTrue(pruefungsAnmeldungPOM.get().isAbbrechenButtonEnabled());
+    @Test(enabled = true, priority = 7)
+    public void testImBaumWaehlen2() throws Exception {
+        pruefungsAnmeldungPOM.get().stellungImStudienplanAuswaelen();
     }
 }
